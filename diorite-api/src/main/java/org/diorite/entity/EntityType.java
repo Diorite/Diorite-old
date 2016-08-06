@@ -38,7 +38,7 @@ public class EntityType extends ASimpleEnum<EntityType>
     }
 
     public static final EntityType PLAYER         = new EntityType("PLAYER", Player.class, "Player", false);
-    public static final EntityType POLAR_BEAR     = new EntityType("POLAR_BEAR", Player.class, "PolarBear", false);
+    public static final EntityType POLAR_BEAR     = new EntityType("POLAR_BEAR", PolarBear.class, "PolarBear", false);
     public static final EntityType CREEPER        = new EntityType("CREEPER", Creeper.class, "Creeper", false);
     public static final EntityType SKELETON       = new EntityType("SKELETON", Skeleton.class, "Skeleton", false);
     public static final EntityType SPIDER         = new EntityType("SPIDER", Spider.class, "Spider", false);
