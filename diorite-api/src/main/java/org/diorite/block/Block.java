@@ -111,7 +111,7 @@ public interface Block
      *
      * @return relative {@link Block}.
      *
-     * @see #getRelative(int, int, int).
+     * @see Block#getRelative(int, int, int).
      */
     default Block getRelative(final BlockFace face, final int multi)
     {
@@ -126,8 +126,8 @@ public interface Block
      *
      * @return relative {@link Block}.
      *
-     * @see #getRelative(BlockFace, int).
-     * @see #getRelative(int, int, int).
+     * @see Block#getRelative(BlockFace, int).
+     * @see Block#getRelative(int, int, int).
      */
     default Block getRelative(final BlockFace face)
     {

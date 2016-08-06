@@ -300,7 +300,6 @@ public final class DioriteArrayUtils
      * If given array or arrays is empty, new empty array will be returned.<br>
      * NOTE: this method use reflections!
      *
-     * @param arrayFunction function that create array of given size, just T[]::new.
      * @param arrays        arrays to join.
      * @param <T>           type of array.
      *

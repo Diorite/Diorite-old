@@ -140,7 +140,7 @@ public abstract class TemplateElement<T>
     /**
      * Check if given class can be compatible with this template after using convert function..
      *
-     * @param clazz class to check.
+     * @param c class to check.
      *
      * @return true if class can be used in this template.
      */

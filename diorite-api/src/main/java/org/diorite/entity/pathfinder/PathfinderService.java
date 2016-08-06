@@ -33,12 +33,12 @@ import org.diorite.entity.Entity;
 public interface PathfinderService<T extends Pathfinder>
 {
     /**
-     * That method will create new Pathfinder instance. <br />
+     * That method will create new Pathfinder instance.
      * Calculations should not be here performed!
      *
      * @param entity   Entity what will go
      * @param goal     The point what will be reached by entity
-     * @param callback you should send here results of your calculations. <br />
+     * @param callback you should send here results of your calculations.
      *                 Entity will intermeditaly go on this Path.
      *                 If you send here empty optional Pathfinding will
      *                 be cancelled.
@@ -49,7 +49,7 @@ public interface PathfinderService<T extends Pathfinder>
 
     /**
      * That method is invoked every tick and signals that pathfinder
-     * will do calculations. <br />
+     * will do calculations.
      * If you're developing asynchronously service, you can take into account only
      * first call of this method for specific Pathfinder.
      *
@@ -59,7 +59,7 @@ public interface PathfinderService<T extends Pathfinder>
 
     /**
      * This method is invoked when you pathfinder reports that it's still active
-     * and entity's target is changed or navigation is cancelled. <br />
+     * and entity's target is changed or navigation is cancelled.
      * This method is especially useful when you're developing asynchronously service.
      *
      * @param pathfinder Pathfinder that will be stopped

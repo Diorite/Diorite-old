@@ -130,7 +130,7 @@ public interface Entity extends GameObject, Synchronizable
     /**
      * If true, this entity will not make sound.
      *
-     * @return
+     * @return should this entity NOT make sounds.
      */
     boolean isSilent();
 
