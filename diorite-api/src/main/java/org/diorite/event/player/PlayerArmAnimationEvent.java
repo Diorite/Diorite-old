@@ -24,6 +24,9 @@
 
 package org.diorite.event.player;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import org.diorite.entity.Player;
 import org.diorite.entity.data.HandType;
 
@@ -42,11 +45,17 @@ public class PlayerArmAnimationEvent extends PlayerEvent
 
     public HandType getHand()
     {
-        return hand;
+        return this.hand;
     }
 
     public void setHand(HandType hand)
     {
         this.hand = hand;
+    }
+
+    @Override
+    public String toString()
+    {
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("hand", this.hand).toString();
     }
 }

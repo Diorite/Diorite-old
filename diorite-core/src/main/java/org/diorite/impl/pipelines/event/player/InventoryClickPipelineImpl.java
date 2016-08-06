@@ -61,7 +61,7 @@ public class InventoryClickPipelineImpl extends SimpleEventPipeline<PlayerInvent
                 player.getNetworkManager().sendPacket(new PacketPlayClientboundTransaction(evt.getWindowId(), evt.getActionNumber(), false));
                 return;
             }
-            final boolean accepted = this.handleClick(evt, (IPlayer) evt.getPlayer(), evt.getClickType());
+            final boolean accepted = this.handleClick(evt, player, evt.getClickType());
             player.getNetworkManager().sendPacket(new PacketPlayClientboundTransaction(evt.getWindowId(), evt.getActionNumber(), accepted));
 
             if (! accepted)

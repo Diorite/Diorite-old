@@ -29,18 +29,42 @@ import org.diorite.inventory.item.ItemStack;
 import org.diorite.inventory.slot.Slot;
 
 /**
- *
+ * Represents current state of player's inventory.
  */
 public interface InventoryView
 {
+    /**
+     * Returns ID of this window.
+     * It's 0 for player inventory.
+     *
+     * @return window ID
+     */
     int getId();
 
+    /**
+     * Returns type of opened inventory.
+     * If inventory is closed it will return {@link InventoryType#PLAYER}.
+     *
+     * @return type of currently viewed inventory.
+     */
     InventoryType getType();
 
     Player getPlayer();
 
+    /**
+     * Returns upper part of inventory.
+     * It will be null when inventory is closed or when Player inventory is opened.
+     *
+     * @return upper part of inventory.
+     */
     Inventory getUpperInventory();
 
+    /**
+     * Returns lower part of inventory.
+     * It is always 3x9 grid with player's inventory and hot-bar.
+     *
+     * @return lower part of inventory.
+     */
     Inventory getLowerInventory();
 
     default DragController getDragController()
@@ -48,11 +72,29 @@ public interface InventoryView
         return this.getPlayer().getInventory().getDragController();
     }
 
+    /**
+     * @return true when currently viewed inventory have upper part.
+     *              When player's inventory is opened it will be false.
+     */
     default boolean hasUpperInventory()
     {
         return this.getUpperInventory() != null;
     }
 
+    /**
+     * @return size of currently viewed inventory.
+     */
+    default int size()
+    {
+        return this.hasUpperInventory() ? (this.getUpperInventory().size() + this.getLowerInventory().size()) : this.getLowerInventory().size();
+    }
+
+    /**
+     * Changes item currently hold in cursor.
+     *
+     * @param newCursor new item
+     * @return previously held item
+     */
     default ItemStack setCursorItem(final ItemStack newCursor)
     {
         return this.getPlayer().getInventory().setCursorItem(newCursor);
@@ -64,14 +106,25 @@ public interface InventoryView
     }
 
     /**
-     * Checks if slot with specified ID is placed in upper inventory
+     * Checks if slot with specified ID is placed in upper inventory.
      *
-     * @param slotId slot ID to check
-     * @return true if slots is in upper inventory
+     * @param slotId slot ID to check.
+     * @return true if slots is in upper inventory.
      */
     default boolean isUpperInventory(final int slotId)
     {
         return this.hasUpperInventory() && this.getUpperInventory().size() > slotId;
+    }
+
+    /**
+     * Checks if slot with specified ID exists in currently opened inventory.
+     *
+     * @param slotId slot ID to check.
+     * @return true if slot exists in this view.
+     */
+    default boolean hasSlot(final int slotId)
+    {
+        return slotId >= 0 && this.size() > slotId;
     }
 
     default int translateSlotToLowerInventory(final int slotId)

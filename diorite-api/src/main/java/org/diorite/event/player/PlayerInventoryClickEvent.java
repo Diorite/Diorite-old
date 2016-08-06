@@ -29,6 +29,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import org.diorite.entity.Player;
 import org.diorite.inventory.ClickType;
+import org.diorite.inventory.InventoryView;
 import org.diorite.inventory.item.ItemStack;
 
 public class PlayerInventoryClickEvent extends PlayerEvent
@@ -38,11 +39,12 @@ public class PlayerInventoryClickEvent extends PlayerEvent
     protected final short     actionNumber;
     protected final ClickType clickType;
 
-    protected final ItemStack clickedItem;
-    protected final ItemStack cursorItem;
+    protected final InventoryView inventoryView;
+    protected final ItemStack     clickedItem;
+    protected final ItemStack     cursorItem;
 
     /**
-     * Construct new player event.
+     * Construct new player inventory click event.
      *
      * @param player       player related to event, can't be null.
      * @param actionNumber action number send by client.
@@ -57,17 +59,9 @@ public class PlayerInventoryClickEvent extends PlayerEvent
         this.clickedSlot = clickedSlot;
         this.actionNumber = actionNumber;
         this.clickType = clickType;
+        this.inventoryView = player.getInventoryView();
 
-        ItemStack clickedItem;
-        try
-        {
-            clickedItem = player.getInventory().getItem(clickedSlot);
-        } catch (final IndexOutOfBoundsException ignored)
-        {
-            clickedItem = null;
-        }
-
-        this.clickedItem = clickedItem;
+        this.clickedItem = this.inventoryView.hasSlot(clickedSlot) ? this.inventoryView.getItem(clickedSlot) : null;
         this.cursorItem = player.getInventory().getCursorItem();
     }
 
@@ -89,6 +83,11 @@ public class PlayerInventoryClickEvent extends PlayerEvent
     public ClickType getClickType()
     {
         return this.clickType;
+    }
+
+    public InventoryView getInventoryView()
+    {
+        return this.inventoryView;
     }
 
     public ItemStack getClickedItem()

@@ -76,14 +76,14 @@ public class PacketPlayServerboundResourcePackStatus extends PacketPlayServerbou
     public void readPacket(final PacketDataSerializer data) throws IOException
     {
         this.hash = data.readText(MAX_HASH_SIZE);
-        this.status = ResourcePackStatus.byId(data.readVarInt());
+        this.status = ResourcePackStatus.values()[data.readVarInt()];
     }
 
     @Override
     public void writeFields(final PacketDataSerializer data) throws IOException
     {
         data.writeText(this.hash);
-        data.writeVarInt(this.status.getId());
+        data.writeVarInt(this.status.ordinal());
     }
 
     @Override
@@ -94,34 +94,10 @@ public class PacketPlayServerboundResourcePackStatus extends PacketPlayServerbou
 
     public enum ResourcePackStatus
     {
-        LOADED(0),
-        DECLINED(1),
-        FAILED_DOWNLOAD(2),
-        ACCEPTED(3);
-
-        private final int id;
-
-        ResourcePackStatus(final int id)
-        {
-            this.id = id;
-        }
-
-        public int getId()
-        {
-            return this.id;
-        }
-
-        public static ResourcePackStatus byId(final int id)
-        {
-            for (final ResourcePackStatus rps : ResourcePackStatus.values())
-            {
-                if (id == rps.getId())
-                {
-                    return rps;
-                }
-            }
-            return null;
-        }
+        LOADED,
+        DECLINED,
+        FAILED_DOWNLOAD,
+        ACCEPTED
     }
 
     @Override
