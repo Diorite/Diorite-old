@@ -24,19 +24,19 @@
 
 package org.diorite.block;
 
-public interface NoteBlock extends BlockState
+import org.diorite.inventory.InventoryHolder;
+import org.diorite.inventory.block.HopperInventory;
+
+/**
+ * Represents a hopper block.
+ */
+public interface Hopper extends BlockState, InventoryHolder
 {
     /**
-     * Returns current note
+     * Returns hopper's inventory
      *
-     * @return note
+     * @return inventory
      */
-    byte getNote();
-
-    /**
-     * Sets current note
-     *
-     * @param note is new note
-     */
-    void setNote(byte note);
+    @Override
+    HopperInventory getInventory();
 }

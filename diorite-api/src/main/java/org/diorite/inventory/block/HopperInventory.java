@@ -22,21 +22,10 @@
  * SOFTWARE.
  */
 
-package org.diorite.block;
+package org.diorite.inventory.block;
 
-public interface NoteBlock extends BlockState
+import org.diorite.inventory.Inventory;
+
+public interface HopperInventory extends Inventory
 {
-    /**
-     * Returns current note
-     *
-     * @return note
-     */
-    byte getNote();
-
-    /**
-     * Sets current note
-     *
-     * @param note is new note
-     */
-    void setNote(byte note);
 }

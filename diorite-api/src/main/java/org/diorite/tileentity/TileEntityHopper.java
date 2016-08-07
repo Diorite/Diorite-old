@@ -22,21 +22,8 @@
  * SOFTWARE.
  */
 
-package org.diorite.block;
+package org.diorite.tileentity;
 
-public interface NoteBlock extends BlockState
+public interface TileEntityHopper extends TileEntity
 {
-    /**
-     * Returns current note
-     *
-     * @return note
-     */
-    byte getNote();
-
-    /**
-     * Sets current note
-     *
-     * @param note is new note
-     */
-    void setNote(byte note);
 }

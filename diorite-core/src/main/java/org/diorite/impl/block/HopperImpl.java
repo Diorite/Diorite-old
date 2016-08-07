@@ -22,21 +22,30 @@
  * SOFTWARE.
  */
 
-package org.diorite.block;
+package org.diorite.impl.block;
 
-public interface NoteBlock extends BlockState
+import org.diorite.impl.inventory.block.HopperInventoryImpl;
+import org.diorite.block.Block;
+import org.diorite.block.Hopper;
+import org.diorite.inventory.block.HopperInventory;
+import org.diorite.tileentity.TileEntityHopper;
+
+public class HopperImpl extends BlockStateImpl implements Hopper
 {
-    /**
-     * Returns current note
-     *
-     * @return note
-     */
-    byte getNote();
+    private final TileEntityHopper tileEntity;
+    private final HopperInventory inventory;
 
-    /**
-     * Sets current note
-     *
-     * @param note is new note
-     */
-    void setNote(byte note);
+    public HopperImpl(final Block block)
+    {
+        super(block);
+
+        this.tileEntity = (TileEntityHopper) block.getWorld().getTileEntity(block.getLocation());
+        this.inventory = new HopperInventoryImpl(this);
+    }
+
+    @Override
+    public HopperInventory getInventory()
+    {
+        return this.inventory;
+    }
 }
