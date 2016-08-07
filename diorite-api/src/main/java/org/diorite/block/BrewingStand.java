@@ -32,24 +32,73 @@ import org.diorite.inventory.item.ItemStack;
  */
 public interface BrewingStand extends BlockState, BlockContainer
 {
+    /**
+     * Gets the left input of the brewing stand.
+     *
+     * @return the left input of the brewing stand.
+     */
     ItemStack getLeftInput();
 
+    /**
+     * Sets the left input of the brewing stand.
+     * @param input is a new input.
+     */
     void setLeftInput(ItemStack input);
 
+    /**
+     * Gets the middle input of the brewing stand.
+     *
+     * @return the middle input of the brewing stand.
+     */
     ItemStack getMiddleInput();
 
+    /**
+     * Sets the middle input of the brewing stand.
+     *
+     * @param input is a new input.
+     */
     void setMiddleInput(ItemStack input);
 
+    /**
+     * Gets the right input of the brewing stand.
+     *
+     * @return the right input of the brewing stand.
+     */
     ItemStack getRightInput();
 
+    /**
+     * Sets the right input of the brewing stand.
+     *
+     * @param input is a new input.
+     */
     void setRightInput(ItemStack input);
 
-    ItemStack getIngridient();
+    /**
+     * Gets the ingredient of the brewing stand.
+     *
+     * @return the ingredient of the brewing stand.
+     */
+    ItemStack getIngredient();
 
-    void setIngridient(ItemStack ingridient);
+    /**
+     * Sets the ingredient of the brewing stand.
+     *
+     * @param ingredient is a new ingredient.
+     */
+    void setIngredient(ItemStack ingredient);
 
+    /**
+     * Gets the fuel of the brewing stand.
+     *
+     * @return the fuel of the brewing stand.
+     */
     ItemStack getFuel();
 
+    /**
+     * Sets the fuel of the brewing stand.
+     *
+     * @param fuel is a new fuel.
+     */
     void setFuel(ItemStack fuel);
 
     /**

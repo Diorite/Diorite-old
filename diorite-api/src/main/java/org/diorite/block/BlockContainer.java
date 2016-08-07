@@ -26,6 +26,9 @@ package org.diorite.block;
 
 import org.diorite.inventory.InventoryHolder;
 
+/**
+ * Represents container block.
+ */
 public interface BlockContainer extends InventoryHolder
 {
 }
