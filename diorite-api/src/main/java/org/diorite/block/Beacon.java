@@ -1,12 +1,11 @@
 package org.diorite.block;
 
-import org.diorite.inventory.InventoryHolder;
 import org.diorite.inventory.item.meta.PotionMeta.PotionTypes;
 
 /**
  * Represents a beacon block.
  */
-public interface Beacon extends BlockState, InventoryHolder
+public interface Beacon extends BlockState, BlockContainer
 {
     int getLevel();
 

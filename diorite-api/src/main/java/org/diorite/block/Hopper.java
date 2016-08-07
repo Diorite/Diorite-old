@@ -24,13 +24,12 @@
 
 package org.diorite.block;
 
-import org.diorite.inventory.InventoryHolder;
 import org.diorite.inventory.block.HopperInventory;
 
 /**
  * Represents a hopper block.
  */
-public interface Hopper extends BlockState, InventoryHolder
+public interface Hopper extends BlockState, BlockContainer
 {
     /**
      * Returns hopper's inventory
