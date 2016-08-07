@@ -24,39 +24,43 @@
 
 package org.diorite.impl.block;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
-import org.diorite.impl.inventory.block.ChestInventoryImpl;
 import org.diorite.block.Block;
-import org.diorite.block.Chest;
-import org.diorite.inventory.Inventory;
-import org.diorite.tileentity.TileEntityChest;
+import org.diorite.block.Jukebox;
+import org.diorite.material.items.RecordMat;
+import org.diorite.tileentity.TileEntityJukebox;
 
-public class ChestImpl extends BlockStateImpl implements Chest
+public class JukeboxImpl extends BlockStateImpl implements Jukebox
 {
-    private final TileEntityChest tileEntity;
-    private final Inventory       inventory;
+    private final TileEntityJukebox tileEntity;
 
-    public ChestImpl(final Block block)
+    public JukeboxImpl(final Block block)
     {
         super(block);
 
-        this.tileEntity = (TileEntityChest) block.getChunk().getTileEntity(block);
-
-        //TODO: return double chest inventory if needed
-        this.inventory = new ChestInventoryImpl(this);
+        this.tileEntity = (TileEntityJukebox) block.getChunk().getTileEntity(block);
     }
 
     @Override
-    public Inventory getInventory()
+    public RecordMat getRecord()
     {
-        return this.inventory;
+        return this.tileEntity.getRecord();
     }
 
     @Override
-    public String toString()
+    public void setRecord(final RecordMat record)
     {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("tileEntity", this.tileEntity).append("inventory", this.inventory).toString();
+        this.tileEntity.setRecord(record);
+    }
+
+    @Override
+    public boolean isPlaying()
+    {
+        return this.tileEntity.isPlaying();
+    }
+
+    @Override
+    public boolean ejectRecord()
+    {
+        return this.tileEntity.ejectRecord();
     }
 }

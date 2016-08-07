@@ -24,6 +24,9 @@
 
 package org.diorite.block;
 
+/**
+ * Represents a command block.
+ */
 public interface CommandBlock extends BlockState
 {
     /**

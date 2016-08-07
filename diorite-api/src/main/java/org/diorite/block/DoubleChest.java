@@ -25,13 +25,12 @@
 package org.diorite.block;
 
 import org.diorite.inventory.Inventory;
-import org.diorite.inventory.InventoryHolder;
 import org.diorite.inventory.block.DoubleChestInventory;
 
 /**
  * Represents a double chest block.
  */
-public class DoubleChest implements InventoryHolder
+public class DoubleChest implements BlockContainer
 {
     private final DoubleChestInventory inventory;
 
@@ -40,14 +39,14 @@ public class DoubleChest implements InventoryHolder
         this.inventory = inventory;
     }
 
-    public InventoryHolder getLeftSide()
+    public BlockContainer getLeftSide()
     {
-        return this.inventory.getLeftSide().getHolder();
+        return (BlockContainer) this.inventory.getLeftSide().getHolder();
     }
 
-    public InventoryHolder getRightSide()
+    public BlockContainer getRightSide()
     {
-        return this.inventory.getRightSide().getHolder();
+        return (BlockContainer) this.inventory.getRightSide().getHolder();
     }
 
     @Override

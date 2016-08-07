@@ -24,9 +24,22 @@
 
 package org.diorite.block;
 
+/**
+ * Represents a note block.
+ */
 public interface NoteBlock extends BlockState
 {
+    /**
+     * Returns current note
+     *
+     * @return note
+     */
     byte getNote();
 
+    /**
+     * Sets current note
+     *
+     * @param note is new note
+     */
     void setNote(byte note);
 }

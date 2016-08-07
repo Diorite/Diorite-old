@@ -22,41 +22,32 @@
  * SOFTWARE.
  */
 
-package org.diorite.impl.block;
+package org.diorite.tileentity;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import org.diorite.block.Sign.SignLine;
 
-import org.diorite.impl.inventory.block.ChestInventoryImpl;
-import org.diorite.block.Block;
-import org.diorite.block.Chest;
-import org.diorite.inventory.Inventory;
-import org.diorite.tileentity.TileEntityChest;
-
-public class ChestImpl extends BlockStateImpl implements Chest
+public interface TileEntitySign extends TileEntity
 {
-    private final TileEntityChest tileEntity;
-    private final Inventory       inventory;
+    /**
+     * Gets all the text lines from this sign.
+     *
+     * @return array of sign text lines.
+     */
+    String[] getLines();
 
-    public ChestImpl(final Block block)
-    {
-        super(block);
+    /**
+     * Gets the text of the specified line.
+     *
+     * @param line defines which line should be returned.
+     * @return text of the given line.
+     */
+    String getLine(SignLine line);
 
-        this.tileEntity = (TileEntityChest) block.getChunk().getTileEntity(block);
-
-        //TODO: return double chest inventory if needed
-        this.inventory = new ChestInventoryImpl(this);
-    }
-
-    @Override
-    public Inventory getInventory()
-    {
-        return this.inventory;
-    }
-
-    @Override
-    public String toString()
-    {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("tileEntity", this.tileEntity).append("inventory", this.inventory).toString();
-    }
+    /**
+     * Sets the text of the specified line.
+     *
+     * @param text is the text to set at the specified line.
+     * @param line defines which line should be set.
+     */
+    void setLine(String text, SignLine line);
 }

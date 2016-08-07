@@ -26,45 +26,32 @@ package org.diorite.impl.tileentity;
 
 import java.util.Set;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
 import org.diorite.block.Block;
-import org.diorite.block.BlockLocation;
+import org.diorite.block.BlockFace;
 import org.diorite.inventory.item.ItemStack;
-import org.diorite.nbt.NbtTagCompound;
-import org.diorite.tileentity.TileEntityNoteBlock;
+import org.diorite.material.SkullType;
+import org.diorite.tileentity.TileEntitySkull;
 import org.diorite.utils.math.DioriteRandom;
 
-public class TileEntityNoteBlockImpl extends TileEntityImpl implements TileEntityNoteBlock
+public class TileEntitySkullImpl extends TileEntityImpl implements TileEntitySkull
 {
-    private final Block block;
-    private       byte  note;
+    private final Block     block;
+    private       BlockFace rotation;
+    private       SkullType skullType;
 
-    public TileEntityNoteBlockImpl(final Block block)
+    public TileEntitySkullImpl(final Block block)
     {
         super(block.getLocation());
+
         this.block = block;
-        this.note = 0;
-    }
-
-
-    @Override
-    public byte getNote()
-    {
-        return this.note;
-    }
-
-    @Override
-    public void setNote(final byte note)
-    {
-        this.note = note;
+        rotation = BlockFace.SELF;
+        this.skullType = SkullType.CREEPER; //TODO: is "CREEPER" default skull type?
     }
 
     @Override
     public void doTick(final int tps)
     {
-        // TODO
+        //TODO
     }
 
     @Override
@@ -76,26 +63,48 @@ public class TileEntityNoteBlockImpl extends TileEntityImpl implements TileEntit
     @Override
     public void simulateDrop(final DioriteRandom rand, final Set<ItemStack> drops)
     {
-        // TODO
+        //TODO
     }
 
     @Override
-    public void loadFromNbt(final NbtTagCompound nbtTileEntity)
+    public boolean hasOwner()
     {
-        super.loadFromNbt(nbtTileEntity);
-        // TODO
+        return false; //TODO
     }
 
     @Override
-    public void saveToNbt(final NbtTagCompound nbtTileEntity)
+    public String getOwner()
     {
-        super.saveToNbt(nbtTileEntity);
-        // TODO
+        return null; //TODO
     }
 
     @Override
-    public String toString()
+    public void setOwner(final String owner)
     {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("block", this.block).append("note", this.note).toString();
+        //TODO
+    }
+
+    @Override
+    public BlockFace getRotation()
+    {
+        return this.rotation;
+    }
+
+    @Override
+    public void setRotation(final BlockFace rotation)
+    {
+        this.rotation = rotation;
+    }
+
+    @Override
+    public SkullType getSkullType()
+    {
+        return this.skullType;
+    }
+
+    @Override
+    public void setSkullType(final SkullType type)
+    {
+        this.skullType = type;
     }
 }

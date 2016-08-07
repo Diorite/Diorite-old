@@ -22,41 +22,59 @@
  * SOFTWARE.
  */
 
-package org.diorite.impl.block;
+package org.diorite.tileentity;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import org.diorite.block.BlockFace;
+import org.diorite.material.SkullType;
 
-import org.diorite.impl.inventory.block.ChestInventoryImpl;
-import org.diorite.block.Block;
-import org.diorite.block.Chest;
-import org.diorite.inventory.Inventory;
-import org.diorite.tileentity.TileEntityChest;
-
-public class ChestImpl extends BlockStateImpl implements Chest
+public interface TileEntitySkull extends TileEntity
 {
-    private final TileEntityChest tileEntity;
-    private final Inventory       inventory;
+    /**
+     * Checks if the skull has an owner.
+     *
+     * @return true if the skull has an owner.
+     */
+    boolean hasOwner();
 
-    public ChestImpl(final Block block)
-    {
-        super(block);
+    /**
+     * Returns the owner of the skull.
+     *
+     * @return the owner of the skull, or null if none exist.
+     */
+    String getOwner();
 
-        this.tileEntity = (TileEntityChest) block.getChunk().getTileEntity(block);
+    /**
+     * Sets the owner of the skull.
+     *
+     * @param owner is the new owner of the skull.
+     */
+    void setOwner(String owner);
 
-        //TODO: return double chest inventory if needed
-        this.inventory = new ChestInventoryImpl(this);
-    }
+    /**
+     * Gets the rotation of the skull.
+     *
+     * @return the rotation of the skull.
+     */
+    BlockFace getRotation();
 
-    @Override
-    public Inventory getInventory()
-    {
-        return this.inventory;
-    }
+    /**
+     * Sets the rotation of the skull.
+     *
+     * @param rotation is the new rotation of the skull.
+     */
+    void setRotation(BlockFace rotation);
 
-    @Override
-    public String toString()
-    {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("tileEntity", this.tileEntity).append("inventory", this.inventory).toString();
-    }
+    /**
+     * Gets the type of the skull.
+     *
+     * @return the type of the skull.
+     */
+    SkullType getSkullType();
+
+    /**
+     * Sets the type of the skull.
+     *
+     * @param type is the new type of the skull.
+     */
+    void setSkullType(SkullType type);
 }

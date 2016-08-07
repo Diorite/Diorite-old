@@ -26,7 +26,17 @@ package org.diorite.tileentity;
 
 public interface TileEntityNoteBlock extends TileEntity
 {
+    /**
+     * Returns current note
+     *
+     * @return note
+     */
     byte getNote();
 
+    /**
+     * Sets current note
+     *
+     * @param note is new note
+     */
     void setNote(byte note);
 }

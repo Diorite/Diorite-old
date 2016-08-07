@@ -24,39 +24,62 @@
 
 package org.diorite.impl.block;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
-import org.diorite.impl.inventory.block.ChestInventoryImpl;
 import org.diorite.block.Block;
-import org.diorite.block.Chest;
-import org.diorite.inventory.Inventory;
-import org.diorite.tileentity.TileEntityChest;
+import org.diorite.block.BlockFace;
+import org.diorite.block.Skull;
+import org.diorite.material.SkullType;
+import org.diorite.tileentity.TileEntitySkull;
 
-public class ChestImpl extends BlockStateImpl implements Chest
+public class SkullImpl extends BlockStateImpl implements Skull
 {
-    private final TileEntityChest tileEntity;
-    private final Inventory       inventory;
+    private final TileEntitySkull tileEntity;
 
-    public ChestImpl(final Block block)
+    public SkullImpl(final Block block)
     {
         super(block);
 
-        this.tileEntity = (TileEntityChest) block.getChunk().getTileEntity(block);
-
-        //TODO: return double chest inventory if needed
-        this.inventory = new ChestInventoryImpl(this);
+        this.tileEntity = (TileEntitySkull) block.getChunk().getTileEntity(block);
     }
 
     @Override
-    public Inventory getInventory()
+    public boolean hasOwner()
     {
-        return this.inventory;
+        return this.tileEntity.hasOwner();
     }
 
     @Override
-    public String toString()
+    public String getOwner()
     {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("tileEntity", this.tileEntity).append("inventory", this.inventory).toString();
+        return this.tileEntity.getOwner();
+    }
+
+    @Override
+    public void setOwner(final String owner)
+    {
+        this.tileEntity.setOwner(owner);
+    }
+
+    @Override
+    public BlockFace getRotation()
+    {
+        return this.tileEntity.getRotation();
+    }
+
+    @Override
+    public void setRotation(final BlockFace rotation)
+    {
+        this.tileEntity.setRotation(rotation);
+    }
+
+    @Override
+    public SkullType getSkullType()
+    {
+        return this.tileEntity.getSkullType();
+    }
+
+    @Override
+    public void setSkullType(final SkullType type)
+    {
+        this.tileEntity.setSkullType(type);
     }
 }

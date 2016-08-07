@@ -42,7 +42,7 @@ public class FurnaceImpl extends BlockStateImpl implements Furnace
     {
         super(block);
 
-        this.tileEntity = (TileEntityFurnaceImpl) block.getWorld().getTileEntity(block.getLocation());
+        this.tileEntity = (TileEntityFurnaceImpl) block.getChunk().getTileEntity(block);
         this.inventory = new FurnaceInventoryImpl(this);
     }
 

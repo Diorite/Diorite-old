@@ -22,41 +22,20 @@
  * SOFTWARE.
  */
 
-package org.diorite.impl.block;
+package org.diorite.block;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import org.diorite.inventory.block.HopperInventory;
 
-import org.diorite.impl.inventory.block.ChestInventoryImpl;
-import org.diorite.block.Block;
-import org.diorite.block.Chest;
-import org.diorite.inventory.Inventory;
-import org.diorite.tileentity.TileEntityChest;
-
-public class ChestImpl extends BlockStateImpl implements Chest
+/**
+ * Represents a hopper block.
+ */
+public interface Hopper extends BlockState, BlockContainer
 {
-    private final TileEntityChest tileEntity;
-    private final Inventory       inventory;
-
-    public ChestImpl(final Block block)
-    {
-        super(block);
-
-        this.tileEntity = (TileEntityChest) block.getChunk().getTileEntity(block);
-
-        //TODO: return double chest inventory if needed
-        this.inventory = new ChestInventoryImpl(this);
-    }
-
+    /**
+     * Returns hopper's inventory
+     *
+     * @return inventory
+     */
     @Override
-    public Inventory getInventory()
-    {
-        return this.inventory;
-    }
-
-    @Override
-    public String toString()
-    {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("tileEntity", this.tileEntity).append("inventory", this.inventory).toString();
-    }
+    HopperInventory getInventory();
 }

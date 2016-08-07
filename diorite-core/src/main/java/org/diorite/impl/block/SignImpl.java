@@ -24,39 +24,36 @@
 
 package org.diorite.impl.block;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
-import org.diorite.impl.inventory.block.ChestInventoryImpl;
 import org.diorite.block.Block;
-import org.diorite.block.Chest;
-import org.diorite.inventory.Inventory;
-import org.diorite.tileentity.TileEntityChest;
+import org.diorite.block.Sign;
+import org.diorite.tileentity.TileEntitySign;
 
-public class ChestImpl extends BlockStateImpl implements Chest
+public class SignImpl extends BlockStateImpl implements Sign
 {
-    private final TileEntityChest tileEntity;
-    private final Inventory       inventory;
+    private final TileEntitySign tileEntity;
 
-    public ChestImpl(final Block block)
+    public SignImpl(final Block block)
     {
         super(block);
 
-        this.tileEntity = (TileEntityChest) block.getChunk().getTileEntity(block);
-
-        //TODO: return double chest inventory if needed
-        this.inventory = new ChestInventoryImpl(this);
+        this.tileEntity = (TileEntitySign) block.getChunk().getTileEntity(block);
     }
 
     @Override
-    public Inventory getInventory()
+    public String[] getLines()
     {
-        return this.inventory;
+        return this.tileEntity.getLines();
     }
 
     @Override
-    public String toString()
+    public String getLine(final SignLine line)
     {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("tileEntity", this.tileEntity).append("inventory", this.inventory).toString();
+        return this.tileEntity.getLine(line);
+    }
+
+    @Override
+    public void setLine(final String text, final SignLine line)
+    {
+        this.tileEntity.setLine(text, line);
     }
 }

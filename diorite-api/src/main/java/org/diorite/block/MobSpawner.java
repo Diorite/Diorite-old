@@ -22,41 +22,37 @@
  * SOFTWARE.
  */
 
-package org.diorite.impl.block;
+package org.diorite.block;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import org.diorite.entity.EntityType;
 
-import org.diorite.impl.inventory.block.ChestInventoryImpl;
-import org.diorite.block.Block;
-import org.diorite.block.Chest;
-import org.diorite.inventory.Inventory;
-import org.diorite.tileentity.TileEntityChest;
-
-public class ChestImpl extends BlockStateImpl implements Chest
+public interface MobSpawner extends BlockState
 {
-    private final TileEntityChest tileEntity;
-    private final Inventory       inventory;
+    /**
+     * Returns spawned entity's type.
+     *
+     * @return spawned entity's type.
+     */
+    EntityType getSpawnerType();
 
-    public ChestImpl(final Block block)
-    {
-        super(block);
+    /**
+     * Sets spawned entity's type.
+     *
+     * @param type is the new spawned entity's type.
+     */
+    void setSpawnerType(EntityType type);
 
-        this.tileEntity = (TileEntityChest) block.getChunk().getTileEntity(block);
+    /**
+     * Gets the spawn delay.
+     *
+     * @return the spawn delay.
+     */
+    int getSpawnDelay();
 
-        //TODO: return double chest inventory if needed
-        this.inventory = new ChestInventoryImpl(this);
-    }
-
-    @Override
-    public Inventory getInventory()
-    {
-        return this.inventory;
-    }
-
-    @Override
-    public String toString()
-    {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("tileEntity", this.tileEntity).append("inventory", this.inventory).toString();
-    }
+    /**
+     * Sets the spawn delay.
+     *
+     * @param delay is the new spawn delay.
+     */
+    void setSpawnDelay(int delay);
 }

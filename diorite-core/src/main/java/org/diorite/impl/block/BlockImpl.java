@@ -125,7 +125,7 @@ public class BlockImpl implements Block
     @Override
     public Optional<TileEntity> getTileEntity()
     {
-        return Optional.ofNullable(this.chunk.getTileEntities().get(this.getLocation().asLong()));
+        return Optional.ofNullable(this.chunk.getTileEntity(this));
     }
 
     @Override

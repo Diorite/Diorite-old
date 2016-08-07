@@ -24,39 +24,43 @@
 
 package org.diorite.impl.block;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
-import org.diorite.impl.inventory.block.ChestInventoryImpl;
 import org.diorite.block.Block;
-import org.diorite.block.Chest;
-import org.diorite.inventory.Inventory;
-import org.diorite.tileentity.TileEntityChest;
+import org.diorite.block.MobSpawner;
+import org.diorite.entity.EntityType;
+import org.diorite.tileentity.TileEntityMobSpawner;
 
-public class ChestImpl extends BlockStateImpl implements Chest
+public class MobSpawnerImpl extends BlockStateImpl implements MobSpawner
 {
-    private final TileEntityChest tileEntity;
-    private final Inventory       inventory;
+    private final TileEntityMobSpawner tileEntity;
 
-    public ChestImpl(final Block block)
+    public MobSpawnerImpl(final Block block)
     {
         super(block);
 
-        this.tileEntity = (TileEntityChest) block.getChunk().getTileEntity(block);
-
-        //TODO: return double chest inventory if needed
-        this.inventory = new ChestInventoryImpl(this);
+        this.tileEntity = (TileEntityMobSpawner) block.getChunk().getTileEntity(block);
     }
 
     @Override
-    public Inventory getInventory()
+    public EntityType getSpawnerType()
     {
-        return this.inventory;
+        return this.tileEntity.getSpawnerType();
     }
 
     @Override
-    public String toString()
+    public void setSpawnerType(final EntityType type)
     {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("tileEntity", this.tileEntity).append("inventory", this.inventory).toString();
+        this.tileEntity.setSpawnerType(type);
+    }
+
+    @Override
+    public int getSpawnDelay()
+    {
+        return this.tileEntity.getSpawnDelay();
+    }
+
+    @Override
+    public void setSpawnDelay(final int delay)
+    {
+        this.tileEntity.setSpawnDelay(delay);
     }
 }

@@ -22,41 +22,41 @@
  * SOFTWARE.
  */
 
-package org.diorite.impl.block;
+package org.diorite.impl.tileentity;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import java.util.Set;
 
-import org.diorite.impl.inventory.block.ChestInventoryImpl;
 import org.diorite.block.Block;
-import org.diorite.block.Chest;
-import org.diorite.inventory.Inventory;
-import org.diorite.tileentity.TileEntityChest;
+import org.diorite.inventory.item.ItemStack;
+import org.diorite.tileentity.TileEntityHopper;
+import org.diorite.utils.math.DioriteRandom;
 
-public class ChestImpl extends BlockStateImpl implements Chest
+public class TileEntityHopperImpl extends TileEntityImpl implements TileEntityHopper
 {
-    private final TileEntityChest tileEntity;
-    private final Inventory       inventory;
+    private final Block block;
 
-    public ChestImpl(final Block block)
+    public TileEntityHopperImpl(final Block block)
     {
-        super(block);
+        super(block.getLocation());
 
-        this.tileEntity = (TileEntityChest) block.getChunk().getTileEntity(block);
-
-        //TODO: return double chest inventory if needed
-        this.inventory = new ChestInventoryImpl(this);
+        this.block = block;
     }
 
     @Override
-    public Inventory getInventory()
+    public void doTick(final int tps)
     {
-        return this.inventory;
+        //TODO
     }
 
     @Override
-    public String toString()
+    public Block getBlock()
     {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("tileEntity", this.tileEntity).append("inventory", this.inventory).toString();
+        return this.block;
+    }
+
+    @Override
+    public void simulateDrop(final DioriteRandom rand, final Set<ItemStack> drops)
+    {
+        //TODO
     }
 }

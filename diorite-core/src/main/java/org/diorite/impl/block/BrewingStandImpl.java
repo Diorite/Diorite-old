@@ -42,7 +42,7 @@ public class BrewingStandImpl extends BlockStateImpl implements BrewingStand
     public BrewingStandImpl(final Block block)
     {
         super(block);
-        this.tileEntity = (TileEntityBrewingStand) block.getWorld().getTileEntity(block.getLocation());
+        this.tileEntity = (TileEntityBrewingStand) block.getChunk().getTileEntity(block);
         this.inventory = new BrewingStandInventoryImpl(this);
     }
 
@@ -83,15 +83,15 @@ public class BrewingStandImpl extends BlockStateImpl implements BrewingStand
     }
 
     @Override
-    public ItemStack getIngridient()
+    public ItemStack getIngredient()
     {
         return this.inventory.getItem(3);
     }
 
     @Override
-    public void setIngridient(final ItemStack ingridient)
+    public void setIngredient(final ItemStack ingredient)
     {
-        this.inventory.setItem(3, ingridient);
+        this.inventory.setItem(3, ingredient);
     }
 
     @Override

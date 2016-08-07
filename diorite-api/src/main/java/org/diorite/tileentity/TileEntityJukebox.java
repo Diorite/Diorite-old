@@ -22,41 +22,38 @@
  * SOFTWARE.
  */
 
-package org.diorite.impl.block;
+package org.diorite.tileentity;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import org.diorite.material.items.RecordMat;
 
-import org.diorite.impl.inventory.block.ChestInventoryImpl;
-import org.diorite.block.Block;
-import org.diorite.block.Chest;
-import org.diorite.inventory.Inventory;
-import org.diorite.tileentity.TileEntityChest;
-
-public class ChestImpl extends BlockStateImpl implements Chest
+public interface TileEntityJukebox extends TileEntity
 {
-    private final TileEntityChest tileEntity;
-    private final Inventory       inventory;
+    /**
+     * Return currently played record.
+     *
+     * @return the record material, or null if none is playing.
+     */
+    RecordMat getRecord();
 
-    public ChestImpl(final Block block)
-    {
-        super(block);
+    /**
+     * Sets currently played record.
+     * Pass null to stop playing.
+     *
+     * @param record is new record material.
+     */
+    void setRecord(RecordMat record);
 
-        this.tileEntity = (TileEntityChest) block.getChunk().getTileEntity(block);
+    /**
+     * Returns if the jukebox is currently playing a record.
+     *
+     * @return true if jukebox is playing a record.
+     */
+    boolean isPlaying();
 
-        //TODO: return double chest inventory if needed
-        this.inventory = new ChestInventoryImpl(this);
-    }
-
-    @Override
-    public Inventory getInventory()
-    {
-        return this.inventory;
-    }
-
-    @Override
-    public String toString()
-    {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("tileEntity", this.tileEntity).append("inventory", this.inventory).toString();
-    }
+    /**
+     * Stops the jukebox and ejects the current record.
+     *
+     * @return true if a record was ejected.
+     */
+    boolean ejectRecord();
 }

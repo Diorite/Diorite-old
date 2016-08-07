@@ -22,59 +22,69 @@
  * SOFTWARE.
  */
 
-package org.diorite.impl.block;
+package org.diorite.impl.tileentity;
+
+import java.util.Set;
 
 import org.diorite.block.Block;
-import org.diorite.block.CommandBlock;
-import org.diorite.tileentity.TileEntityCommandBlock;
+import org.diorite.entity.EntityType;
+import org.diorite.inventory.item.ItemStack;
+import org.diorite.tileentity.TileEntityMobSpawner;
+import org.diorite.utils.math.DioriteRandom;
 
-public class CommandBlockImpl extends BlockStateImpl implements CommandBlock
+public class TileEntityMobSpawnerImpl extends TileEntityImpl implements TileEntityMobSpawner
 {
-    private final TileEntityCommandBlock tileEntity;
+    private final Block      block;
+    private       EntityType entityType;
+    private       int        spawnDelay;
 
-    public CommandBlockImpl(final Block block)
+    public TileEntityMobSpawnerImpl(final Block block)
     {
-        super(block);
+        super(block.getLocation());
 
-        this.tileEntity = (TileEntityCommandBlock) block.getChunk().getTileEntity(block);
-
-        //TODO: set command and name (get values from tile entity)
+        this.block = block;
+        this.entityType = EntityType.PIG;
+        this.spawnDelay = 200; //TODO: check and set proper default delay
+    }
+    @Override
+    public void doTick(final int tps)
+    {
+       //TODO: check light level, spawn entity
     }
 
     @Override
-    public boolean update(final boolean force, final boolean applyPhysics)
+    public Block getBlock()
     {
-        boolean result = super.update(force, applyPhysics);
-
-        if(result)
-        {
-
-        }
-
-        return result;
+        return this.block;
     }
 
     @Override
-    public String getCommand()
+    public void simulateDrop(final DioriteRandom rand, final Set<ItemStack> drops)
     {
-        return this.tileEntity.getCommand();
+        //TODO
     }
 
     @Override
-    public void setCommand(final String command)
+    public EntityType getSpawnerType()
     {
-        this.tileEntity.setCommand(command);
+        return this.entityType;
     }
 
     @Override
-    public String getName()
+    public void setSpawnerType(final EntityType type)
     {
-        return this.tileEntity.getName();
+        this.entityType = type;
     }
 
     @Override
-    public void setName(final String name)
+    public int getSpawnDelay()
     {
-        this.tileEntity.setName(name);
+        return this.spawnDelay;
+    }
+
+    @Override
+    public void setSpawnDelay(final int delay)
+    {
+        this.spawnDelay = delay;
     }
 }

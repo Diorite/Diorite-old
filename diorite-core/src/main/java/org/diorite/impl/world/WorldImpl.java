@@ -1002,10 +1002,4 @@ public class WorldImpl implements World, Tickable
     {
         this.players.stream().map(IPlayer::getNetworkManager).forEach(net -> net.sendPacket(packet));
     }
-
-    @Override
-    public TileEntity getTileEntity(final BlockLocation location)
-    {
-        return null; //TODO
-    }
 }

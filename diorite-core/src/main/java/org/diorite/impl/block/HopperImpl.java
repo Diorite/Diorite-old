@@ -24,39 +24,28 @@
 
 package org.diorite.impl.block;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
-import org.diorite.impl.inventory.block.ChestInventoryImpl;
+import org.diorite.impl.inventory.block.HopperInventoryImpl;
 import org.diorite.block.Block;
-import org.diorite.block.Chest;
-import org.diorite.inventory.Inventory;
-import org.diorite.tileentity.TileEntityChest;
+import org.diorite.block.Hopper;
+import org.diorite.inventory.block.HopperInventory;
+import org.diorite.tileentity.TileEntityHopper;
 
-public class ChestImpl extends BlockStateImpl implements Chest
+public class HopperImpl extends BlockStateImpl implements Hopper
 {
-    private final TileEntityChest tileEntity;
-    private final Inventory       inventory;
+    private final TileEntityHopper tileEntity;
+    private final HopperInventory inventory;
 
-    public ChestImpl(final Block block)
+    public HopperImpl(final Block block)
     {
         super(block);
 
-        this.tileEntity = (TileEntityChest) block.getChunk().getTileEntity(block);
-
-        //TODO: return double chest inventory if needed
-        this.inventory = new ChestInventoryImpl(this);
+        this.tileEntity = (TileEntityHopper) block.getChunk().getTileEntity(block);
+        this.inventory = new HopperInventoryImpl(this);
     }
 
     @Override
-    public Inventory getInventory()
+    public HopperInventory getInventory()
     {
         return this.inventory;
-    }
-
-    @Override
-    public String toString()
-    {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("tileEntity", this.tileEntity).append("inventory", this.inventory).toString();
     }
 }
