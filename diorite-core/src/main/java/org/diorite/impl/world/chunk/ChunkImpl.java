@@ -25,6 +25,8 @@
 package org.diorite.impl.world.chunk;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -461,7 +463,21 @@ public class ChunkImpl implements Chunk
             this.getWorld().addEntity(dioriteEntity, false);
         }
 
-        // TODO tile entities
+        final List<NbtTagCompound> nbtTileEntities = tag.getList("TileEntities", NbtTagCompound.class);
+        for(final NbtTagCompound nbtTileEntity : nbtTileEntities)
+        {
+            final TileEntityImpl tileEntity;
+            try
+            {
+                tileEntity = DioriteCore.getInstance().getServerManager().getTileEntityFactory().createTileEntity(nbtTileEntity, this.getWorld());
+            }
+            catch (final Exception e)
+            {
+                System.err.println("Failed to load tile entity (" + nbtTileEntity + ")");
+                continue;
+            }
+            this.tileEntities.put(tileEntity.getBlock().getLocation().asLong(), tileEntity);
+        }
 
         final byte[] biomes = tag.getByteArray("Biomes");
         if (biomes != null)
@@ -601,7 +617,19 @@ public class ChunkImpl implements Chunk
             }
 
             tag.setList("Entities", entities);
-            tag.setList("TileEntities", new ArrayList<>(1)); // TODO
+
+            final List<NbtTag> nbtTileEntities = new ArrayList<>(this.tileEntities.size());
+            Collection<TileEntityImpl> tileEntitiesCollection = this.tileEntities.values();
+
+            for(Iterator<TileEntityImpl> i = tileEntitiesCollection.iterator(); i.hasNext();)
+            {
+                NbtTagCompound nbtTileEntity = new NbtTagCompound();
+                i.next().saveToNbt(nbtTileEntity);
+
+                nbtTileEntities.add(nbtTileEntity);
+            }
+
+            tag.setList("TileEntities", nbtTileEntities);
             return tag;
         }
     }

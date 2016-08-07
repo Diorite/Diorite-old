@@ -22,25 +22,16 @@
  * SOFTWARE.
  */
 
-package org.diorite.impl;
+package org.diorite.impl.tileentity;
 
-import org.diorite.impl.entity.IEntityFactory;
-import org.diorite.impl.inventory.recipe.IRecipeManager;
-import org.diorite.impl.tileentity.ITileEntityFactory;
-import org.diorite.ServerManager;
+import org.diorite.impl.world.WorldImpl;
+import org.diorite.TileEntityFactory;
+import org.diorite.block.Block;
+import org.diorite.nbt.NbtTagCompound;
 
-public interface IServerManager extends ServerManager
+public interface ITileEntityFactory extends TileEntityFactory
 {
-    void setRecipeManager(IRecipeManager recipeManager);
+    TileEntityImpl createTileEntity(Block block);
 
-    IEntityFactory getEntityFactory();
-
-    void setEntityFactory(IEntityFactory entityFactory);
-
-    ITileEntityFactory getTileEntityFactory();
-
-    void setTileEntityFactory(ITileEntityFactory tileEntityFactory);
-
-    @Override
-    IRecipeManager getRecipeManager();
+    TileEntityImpl createTileEntity(NbtTagCompound nbt, WorldImpl world);
 }

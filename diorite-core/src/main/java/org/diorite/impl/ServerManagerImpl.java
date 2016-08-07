@@ -35,6 +35,8 @@ import org.diorite.impl.entity.pathfinder.DefaultPathfinderService;
 import org.diorite.impl.inventory.recipe.IRecipeManager;
 import org.diorite.impl.inventory.recipe.RecipeManagerImpl;
 import org.diorite.impl.permissions.DioritePermissionsManager;
+import org.diorite.impl.tileentity.ITileEntityFactory;
+import org.diorite.impl.tileentity.diorite.DioriteTileEntityFactory;
 import org.diorite.BossBar;
 import org.diorite.chat.component.BaseComponent;
 import org.diorite.entity.pathfinder.PathfinderService;
@@ -49,6 +51,7 @@ public class ServerManagerImpl implements IServerManager
     private       PermissionsManager permissionsManager;
     private       IRecipeManager     recipeManager;
     private       IEntityFactory     entityFactory;
+    private       ITileEntityFactory tileEntityFactory;
     private       PathfinderService  pathfinderService;
 
     public ServerManagerImpl(final DioriteCore core)
@@ -57,6 +60,7 @@ public class ServerManagerImpl implements IServerManager
         this.permissionsManager = new DioritePermissionsManager();
         this.recipeManager = new RecipeManagerImpl();
         this.entityFactory = new DioriteEntityFactory(core);
+        this.tileEntityFactory = new DioriteTileEntityFactory(core);
         this.pathfinderService = new DefaultPathfinderService();
     }
 
@@ -100,6 +104,18 @@ public class ServerManagerImpl implements IServerManager
     public void setEntityFactory(final IEntityFactory entityFactory)
     {
         this.entityFactory = entityFactory;
+    }
+
+    @Override
+    public ITileEntityFactory getTileEntityFactory()
+    {
+        return this.tileEntityFactory;
+    }
+
+    @Override
+    public void setTileEntityFactory(final ITileEntityFactory tileEntityFactory)
+    {
+        this.tileEntityFactory = tileEntityFactory;
     }
 
     @Override

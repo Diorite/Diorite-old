@@ -22,25 +22,8 @@
  * SOFTWARE.
  */
 
-package org.diorite.impl;
+package org.diorite;
 
-import org.diorite.impl.entity.IEntityFactory;
-import org.diorite.impl.inventory.recipe.IRecipeManager;
-import org.diorite.impl.tileentity.ITileEntityFactory;
-import org.diorite.ServerManager;
-
-public interface IServerManager extends ServerManager
+public interface TileEntityFactory
 {
-    void setRecipeManager(IRecipeManager recipeManager);
-
-    IEntityFactory getEntityFactory();
-
-    void setEntityFactory(IEntityFactory entityFactory);
-
-    ITileEntityFactory getTileEntityFactory();
-
-    void setTileEntityFactory(ITileEntityFactory tileEntityFactory);
-
-    @Override
-    IRecipeManager getRecipeManager();
 }

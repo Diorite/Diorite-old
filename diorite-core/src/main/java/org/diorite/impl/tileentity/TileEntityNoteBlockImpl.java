@@ -41,9 +41,9 @@ public class TileEntityNoteBlockImpl extends TileEntityImpl implements TileEntit
     private final Block block;
     private       byte  note;
 
-    public TileEntityNoteBlockImpl(final BlockLocation location, final Block block)
+    public TileEntityNoteBlockImpl(final Block block)
     {
-        super(location);
+        super(block.getLocation());
         this.block = block;
         this.note = 0;
     }
