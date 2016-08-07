@@ -39,7 +39,7 @@ public class HopperImpl extends BlockStateImpl implements Hopper
     {
         super(block);
 
-        this.tileEntity = (TileEntityHopper) block.getWorld().getTileEntity(block.getLocation());
+        this.tileEntity = (TileEntityHopper) block.getChunk().getTileEntity(block);
         this.inventory = new HopperInventoryImpl(this);
     }
 

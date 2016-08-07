@@ -37,7 +37,7 @@ public class JukeboxImpl extends BlockStateImpl implements Jukebox
     {
         super(block);
 
-        this.tileEntity = (TileEntityJukebox) block.getWorld().getTileEntity(block.getLocation());
+        this.tileEntity = (TileEntityJukebox) block.getChunk().getTileEntity(block);
     }
 
     @Override

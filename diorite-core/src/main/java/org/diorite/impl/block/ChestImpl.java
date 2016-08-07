@@ -42,7 +42,7 @@ public class ChestImpl extends BlockStateImpl implements Chest
     {
         super(block);
 
-        this.tileEntity = (TileEntityChest) block.getWorld().getTileEntity(block.getLocation());
+        this.tileEntity = (TileEntityChest) block.getChunk().getTileEntity(block);
 
         //TODO: return double chest inventory if needed
         this.inventory = new ChestInventoryImpl(this);

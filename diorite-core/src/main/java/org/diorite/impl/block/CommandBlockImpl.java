@@ -36,7 +36,7 @@ public class CommandBlockImpl extends BlockStateImpl implements CommandBlock
     {
         super(block);
 
-        this.tileEntity = (TileEntityCommandBlock) block.getWorld().getTileEntity(block.getLocation());
+        this.tileEntity = (TileEntityCommandBlock) block.getChunk().getTileEntity(block);
 
         //TODO: set command and name (get values from tile entity)
     }

@@ -38,7 +38,7 @@ public class SkullImpl extends BlockStateImpl implements Skull
     {
         super(block);
 
-        this.tileEntity = (TileEntitySkull) block.getWorld().getTileEntity(block.getLocation());
+        this.tileEntity = (TileEntitySkull) block.getChunk().getTileEntity(block);
     }
 
     @Override

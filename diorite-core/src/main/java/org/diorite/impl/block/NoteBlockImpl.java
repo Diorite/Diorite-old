@@ -38,7 +38,7 @@ public class NoteBlockImpl extends BlockStateImpl implements NoteBlock
     public NoteBlockImpl(final Block block)
     {
         super(block);
-        this.tileEntity = (TileEntityNoteBlockImpl) block.getWorld().getTileEntity(block.getLocation());
+        this.tileEntity = (TileEntityNoteBlockImpl) block.getChunk().getTileEntity(block);
     }
 
     @Override

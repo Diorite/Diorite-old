@@ -20,7 +20,7 @@ public class BeaconImpl extends BlockStateImpl implements Beacon
     {
         super(block);
 
-        this.tileEntity = (TileEntityBeacon) block.getWorld().getTileEntity(block.getLocation());
+        this.tileEntity = (TileEntityBeacon) block.getChunk().getTileEntity(block);
         this.inventory = new BeaconInventoryImpl(this);
     }
 

@@ -36,7 +36,7 @@ public class SignImpl extends BlockStateImpl implements Sign
     {
         super(block);
 
-        this.tileEntity = (TileEntitySign) block.getWorld().getTileEntity(block.getLocation());
+        this.tileEntity = (TileEntitySign) block.getChunk().getTileEntity(block);
     }
 
     @Override

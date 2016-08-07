@@ -41,7 +41,7 @@ public class DispenserImpl extends BlockStateImpl implements Dispenser
     public DispenserImpl(final Block block)
     {
         super(block);
-        this.tileEntity = (TileEntityDispenser) block.getWorld().getTileEntity(block.getLocation());
+        this.tileEntity = (TileEntityDispenser) block.getChunk().getTileEntity(block);
         this.inventory = new DispenserInventoryImpl(this);
     }
 

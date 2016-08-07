@@ -186,6 +186,4 @@ public interface World extends BossBarHolder
     void save();
 
     void save(boolean async);
-
-    TileEntity getTileEntity(BlockLocation location);
 }

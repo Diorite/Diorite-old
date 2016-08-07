@@ -26,6 +26,7 @@ package org.diorite.world.chunk;
 
 import org.diorite.material.BlockMaterialData;
 import org.diorite.scheduler.Synchronizable;
+import org.diorite.tileentity.TileEntity;
 import org.diorite.world.Biome;
 import org.diorite.block.Block;
 import org.diorite.world.World;
@@ -80,6 +81,8 @@ public interface Chunk extends Synchronizable
     int getX();
 
     int getZ();
+
+    TileEntity getTileEntity(Block block);
 
 //    void recalculateBlockCounts();
 }

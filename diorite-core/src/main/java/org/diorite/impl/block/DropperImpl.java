@@ -41,7 +41,7 @@ public class DropperImpl extends BlockStateImpl implements Dropper
     public DropperImpl(final Block block)
     {
         super(block);
-        this.tileEntity = (TileEntityDropper) block.getWorld().getTileEntity(block.getLocation());
+        this.tileEntity = (TileEntityDropper) block.getChunk().getTileEntity(block);
         this.inventory = new DropperInventoryImpl(this);
     }
 

@@ -37,7 +37,7 @@ public class MobSpawnerImpl extends BlockStateImpl implements MobSpawner
     {
         super(block);
 
-        this.tileEntity = (TileEntityMobSpawner) block.getWorld().getTileEntity(block.getLocation());
+        this.tileEntity = (TileEntityMobSpawner) block.getChunk().getTileEntity(block);
     }
 
     @Override

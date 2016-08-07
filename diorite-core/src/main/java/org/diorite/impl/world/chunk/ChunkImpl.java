@@ -41,12 +41,14 @@ import org.diorite.impl.entity.IPlayer;
 import org.diorite.impl.tileentity.TileEntityImpl;
 import org.diorite.impl.world.WorldImpl;
 import org.diorite.impl.world.chunk.palette.PaletteImpl;
+import org.diorite.block.BlockLocation;
 import org.diorite.event.EventType;
 import org.diorite.event.chunk.ChunkUnloadEvent;
 import org.diorite.material.BlockMaterialData;
 import org.diorite.material.Material;
 import org.diorite.nbt.NbtTag;
 import org.diorite.nbt.NbtTagCompound;
+import org.diorite.tileentity.TileEntity;
 import org.diorite.utils.collections.arrays.NibbleArray;
 import org.diorite.utils.collections.sets.ConcurrentSet;
 import org.diorite.world.Biome;
@@ -690,5 +692,18 @@ public class ChunkImpl implements Chunk
         final ChunkImpl chunk = new ChunkImpl(chunkPos);
         chunk.loadFrom(tag);
         return chunk;
+    }
+
+    @Override
+    public TileEntity getTileEntity(final Block block)
+    {
+        TileEntity tileEntity = this.tileEntities.get(block.getLocation().asLong());
+
+        if(tileEntity == null)
+        {
+            this.tileEntities.put(block.getLocation().asLong(), DioriteCore.getInstance().getServerManager().getTileEntityFactory().createTileEntity(block));
+        }
+
+        return tileEntity;
     }
 }
