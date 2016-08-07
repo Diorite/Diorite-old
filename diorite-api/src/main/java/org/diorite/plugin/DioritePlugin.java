@@ -203,6 +203,7 @@ public abstract class DioritePlugin implements BasePlugin
      *
      * @see PluginClassLoader
      */
+    @Override
     public final PluginClassLoader getClassLoader()
     {
         this.initCheck();

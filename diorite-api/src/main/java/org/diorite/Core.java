@@ -34,6 +34,7 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 
+import org.diorite.beans.BeanManager;
 import org.diorite.cfg.DioriteConfig;
 import org.diorite.chat.ChatColor;
 import org.diorite.chat.ChatPosition;
@@ -193,6 +194,8 @@ public interface Core extends Synchronizable
      * @return instance of diorite scheduler.
      */
     Scheduler getScheduler();
+
+    BeanManager getBeans();
 
     /**
      * Returns instance of diorite timings manager.

@@ -55,6 +55,7 @@ import org.slf4j.LoggerFactory;
 
 import org.diorite.impl.auth.SessionService;
 import org.diorite.impl.auth.yggdrasil.YggdrasilSessionService;
+import org.diorite.impl.bean.BeanManagerImpl;
 import org.diorite.impl.cfg.DioriteConfigImpl;
 import org.diorite.impl.command.ColoredConsoleCommandSenderImpl;
 import org.diorite.impl.command.CommandMapImpl;
@@ -101,6 +102,7 @@ import org.diorite.impl.world.tick.TickGroups;
 import org.diorite.Core;
 import org.diorite.Diorite;
 import org.diorite.ItemFactory;
+import org.diorite.beans.BeanManager;
 import org.diorite.cfg.DioriteConfig.OnlineMode;
 import org.diorite.cfg.messages.DioriteMessages;
 import org.diorite.cfg.system.Template;
@@ -139,6 +141,7 @@ import org.diorite.event.player.PlayerInteractEvent;
 import org.diorite.event.player.PlayerInventoryClickEvent;
 import org.diorite.event.player.PlayerJoinEvent;
 import org.diorite.event.player.PlayerQuitEvent;
+import org.diorite.plugin.BasePlugin;
 import org.diorite.plugin.DioritePlugin;
 import org.diorite.plugin.PluginManager;
 import org.diorite.scheduler.Scheduler;
@@ -303,6 +306,7 @@ public class DioriteCore implements Core
     protected long                     currentTick;
     protected int                      keepAliveTimer;
     protected DioriteConfigImpl        config;
+    protected BeanManagerImpl          dioriteBeans;
     protected PluginManager            pluginManager;
     protected TimingsManager           timings;
     protected IServerManager           serverManager;
@@ -474,6 +478,12 @@ public class DioriteCore implements Core
     public Scheduler getScheduler()
     {
         return this.scheduler;
+    }
+
+    @Override
+    public BeanManagerImpl getBeans()
+    {
+        return this.dioriteBeans;
     }
 
     @Override
@@ -1075,6 +1085,14 @@ public class DioriteCore implements Core
     {
         Reflections.log = null;
         initPipeline = new CoreInitPipeline();
+        initPipeline.addLast("DioriteCore|DioriteBeanScan", (s, p, d) -> {
+            s.dioriteBeans = new BeanManagerImpl(s);
+            s.dioriteBeans.doScan(s.getClass().getClassLoader(), "org.diorite");
+            for (final BasePlugin basePlugin : s.pluginManager.getPlugins())
+            {
+                s.dioriteBeans.doScan(basePlugin.getClassLoader(), basePlugin.getClass().getPackage().getName()); // TODO allow to set own base package
+            }
+        });
         initPipeline.addLast("DioriteCore|LoadBasicSettings", (s, p, d) -> {
             s.keepAliveTimer = (int) d.options.valueOf("keepalivetimer");
 

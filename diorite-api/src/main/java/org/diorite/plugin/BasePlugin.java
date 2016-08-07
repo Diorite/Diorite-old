@@ -111,6 +111,8 @@ public interface BasePlugin
      */
     PluginLoader getPluginLoader();
 
+    PluginClassLoader getClassLoader();
+
     /**
      * Returns folder where plugin should store all data. With default settings this is /plugins/{pluginName} folder.
      *

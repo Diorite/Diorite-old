@@ -29,7 +29,6 @@ import java.net.MalformedURLException;
 import java.util.Set;
 
 import org.reflections.Reflections;
-import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 
 import org.diorite.impl.CoreMain;
@@ -83,7 +82,7 @@ public class JarPluginLoader implements PluginLoader
             {
                 final ConfigurationBuilder config = new ConfigurationBuilder();
                 config.setClassLoaders(new PluginClassLoader[]{classLoader});
-                config.setUrls(ClasspathHelper.forClassLoader(classLoader));
+                config.addUrls(file.toURI().toURL());
 
                 final Reflections ref = new Reflections(config);
                 final Set<Class<?>> annotated = ref.getTypesAnnotatedWith(Plugin.class);

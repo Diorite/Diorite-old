@@ -120,6 +120,12 @@ public class FakeDioritePlugin implements ChildPlugin
     }
 
     @Override
+    public PluginClassLoader getClassLoader()
+    {
+        return null;
+    }
+
+    @Override
     public File getDataFolder()
     {
         if (this.dataFolder == null)
