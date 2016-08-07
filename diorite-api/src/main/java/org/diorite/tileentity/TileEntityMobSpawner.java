@@ -22,24 +22,37 @@
  * SOFTWARE.
  */
 
-package org.diorite.block;
+package org.diorite.tileentity;
 
-/**
- * Represents a note block.
- */
-public interface NoteBlock extends BlockState
+import org.diorite.entity.EntityType;
+
+public interface TileEntityMobSpawner extends TileEntity
 {
     /**
-     * Returns current note
+     * Returns spawned entity's type.
      *
-     * @return note
+     * @return spawned entity's type.
      */
-    byte getNote();
+    EntityType getSpawnerType();
 
     /**
-     * Sets current note
+     * Sets spawned entity's type.
      *
-     * @param note is new note
+     * @param type is the new spawned entity's type.
      */
-    void setNote(byte note);
+    void setSpawnerType(EntityType type);
+
+    /**
+     * Gets the spawn delay.
+     *
+     * @return the spawn delay.
+     */
+    int getSpawnDelay();
+
+    /**
+     * Sets the spawn delay.
+     *
+     * @param delay is the new spawn delay.
+     */
+    void setSpawnDelay(int delay);
 }

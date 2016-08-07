@@ -24,6 +24,9 @@
 
 package org.diorite.block;
 
+/**
+ * Represents a sign block.
+ */
 public interface Sign extends BlockState
 {
     /**

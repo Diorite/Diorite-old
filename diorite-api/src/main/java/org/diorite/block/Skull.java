@@ -26,6 +26,9 @@ package org.diorite.block;
 
 import org.diorite.material.SkullType;
 
+/**
+ * Represents a skull block.
+ */
 public interface Skull extends BlockState
 {
     /**

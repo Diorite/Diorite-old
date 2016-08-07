@@ -28,7 +28,7 @@ import org.diorite.inventory.block.BrewingStandInventory;
 import org.diorite.inventory.item.ItemStack;
 
 /**
- * Represents a brewing stand.
+ * Represents a brewing stand block.
  */
 public interface BrewingStand extends BlockState, BlockContainer
 {

@@ -26,6 +26,9 @@ package org.diorite.block;
 
 import org.diorite.material.items.RecordMat;
 
+/**
+ * Represents a jukebox.
+ */
 public interface Jukebox extends BlockState
 {
     /**

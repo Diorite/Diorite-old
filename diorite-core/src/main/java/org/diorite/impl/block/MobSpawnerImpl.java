@@ -22,24 +22,45 @@
  * SOFTWARE.
  */
 
-package org.diorite.block;
+package org.diorite.impl.block;
 
-/**
- * Represents a note block.
- */
-public interface NoteBlock extends BlockState
+import org.diorite.block.Block;
+import org.diorite.block.MobSpawner;
+import org.diorite.entity.EntityType;
+import org.diorite.tileentity.TileEntityMobSpawner;
+
+public class MobSpawnerImpl extends BlockStateImpl implements MobSpawner
 {
-    /**
-     * Returns current note
-     *
-     * @return note
-     */
-    byte getNote();
+    private final TileEntityMobSpawner tileEntity;
 
-    /**
-     * Sets current note
-     *
-     * @param note is new note
-     */
-    void setNote(byte note);
+    public MobSpawnerImpl(final Block block)
+    {
+        super(block);
+
+        this.tileEntity = (TileEntityMobSpawner) block.getWorld().getTileEntity(block.getLocation());
+    }
+
+    @Override
+    public EntityType getSpawnerType()
+    {
+        return this.tileEntity.getSpawnerType();
+    }
+
+    @Override
+    public void setSpawnerType(final EntityType type)
+    {
+        this.tileEntity.setSpawnerType(type);
+    }
+
+    @Override
+    public int getSpawnDelay()
+    {
+        return this.tileEntity.getSpawnDelay();
+    }
+
+    @Override
+    public void setSpawnDelay(final int delay)
+    {
+        this.tileEntity.setSpawnDelay(delay);
+    }
 }
