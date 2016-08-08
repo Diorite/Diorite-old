@@ -75,7 +75,7 @@ public interface Block
      */
     Optional<TileEntity> getTileEntity();
 
-    BlockState getState();
+    BlockState getState(); //TODO: should be optional?
 
     /**
      * Method to set type (id and sub-id) of block.
