@@ -701,7 +701,7 @@ public class ChunkImpl implements Chunk
 
         if(tileEntity == null)
         {
-            this.tileEntities.put(block.getLocation().asLong(), DioriteCore.getInstance().getServerManager().getTileEntityFactory().createTileEntity(block));
+            this.tileEntities.put(block.getLocation().asLong(), DioriteCore.getInstance().getServerManager().getTileEntityFactory().createTileEntity(block.getState()));
         }
 
         return tileEntity;

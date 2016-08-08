@@ -31,11 +31,4 @@ import org.diorite.inventory.block.DispenserInventory;
  */
 public interface Dispenser extends BlockState, BlockContainer
 {
-    /**
-     * Returns dispenser's inventory
-     *
-     * @return inventory
-     */
-    @Override
-    DispenserInventory getInventory();
 }

@@ -31,6 +31,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import org.diorite.block.Block;
 import org.diorite.block.BlockLocation;
+import org.diorite.block.NoteBlock;
 import org.diorite.inventory.item.ItemStack;
 import org.diorite.nbt.NbtTagCompound;
 import org.diorite.tileentity.TileEntityNoteBlock;
@@ -38,10 +39,10 @@ import org.diorite.utils.math.DioriteRandom;
 
 public class TileEntityNoteBlockImpl extends TileEntityImpl implements TileEntityNoteBlock
 {
-    private final Block block;
+    private final NoteBlock block;
     private       byte  note;
 
-    public TileEntityNoteBlockImpl(final Block block)
+    public TileEntityNoteBlockImpl(final NoteBlock block)
     {
         super(block.getLocation());
         this.block = block;
@@ -70,7 +71,7 @@ public class TileEntityNoteBlockImpl extends TileEntityImpl implements TileEntit
     @Override
     public Block getBlock()
     {
-        return this.block;
+        return this.block.getBlock();
     }
 
     @Override

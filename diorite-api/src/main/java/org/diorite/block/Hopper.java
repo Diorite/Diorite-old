@@ -31,11 +31,4 @@ import org.diorite.inventory.block.HopperInventory;
  */
 public interface Hopper extends BlockState, BlockContainer
 {
-    /**
-     * Returns hopper's inventory
-     *
-     * @return inventory
-     */
-    @Override
-    HopperInventory getInventory();
 }

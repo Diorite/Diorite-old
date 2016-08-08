@@ -29,8 +29,11 @@ import java.util.Set;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import org.diorite.impl.inventory.block.BrewingStandInventoryImpl;
 import org.diorite.block.Block;
+import org.diorite.block.BrewingStand;
 import org.diorite.inventory.InventoryType;
+import org.diorite.inventory.block.BrewingStandInventory;
 import org.diorite.inventory.item.ItemStack;
 import org.diorite.nbt.NbtTagCompound;
 import org.diorite.tileentity.TileEntityBrewingStand;
@@ -38,13 +41,15 @@ import org.diorite.utils.math.DioriteRandom;
 
 public class TileEntityBrewingStandImpl extends TileEntityImpl implements TileEntityBrewingStand
 {
-    private final Block block;
-    private ItemStack[] items = new ItemStack[InventoryType.BREWING.getSize()];
+    private final BrewingStand block;
+    private       ItemStack[] items = new ItemStack[InventoryType.BREWING.getSize()];
+    private BrewingStandInventory inventory;
 
-    public TileEntityBrewingStandImpl(final Block block)
+    public TileEntityBrewingStandImpl(final BrewingStand block)
     {
         super(block.getLocation());
         this.block = block;
+        this.inventory = new BrewingStandInventoryImpl(block);
     }
 
     @Override
@@ -56,7 +61,7 @@ public class TileEntityBrewingStandImpl extends TileEntityImpl implements TileEn
     @Override
     public Block getBlock()
     {
-        return this.block;
+        return this.block.getBlock();
     }
 
     @Override
@@ -85,5 +90,11 @@ public class TileEntityBrewingStandImpl extends TileEntityImpl implements TileEn
     public String toString()
     {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("block", this.block).toString();
+    }
+
+    @Override
+    public BrewingStandInventory getInventory()
+    {
+        return this.inventory;
     }
 }

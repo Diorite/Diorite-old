@@ -32,6 +32,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import org.diorite.impl.world.chunk.ChunkImpl;
+import org.diorite.block.BlockState;
 import org.diorite.material.BlockMaterialData;
 import org.diorite.utils.lazy.LazyValue;
 import org.diorite.utils.math.geometry.BoundingBox;
@@ -48,6 +49,7 @@ public class BlockImpl implements Block
     private final ChunkImpl              chunk;
     private       BlockMaterialData      type;
     private final LazyValue<BoundingBox> lazyBox;
+    private       BlockState             state;
 
     public BlockImpl(final int x, final int y, final int z, final ChunkImpl chunk, final BlockMaterialData type)
     {
@@ -68,6 +70,65 @@ public class BlockImpl implements Block
 
             return BoundingBox.fromCorners(new Vector3d(x1, y1, z1), new Vector3d(x2, y2, z2));
         });
+
+        BlockMaterialData mat = this.getType();
+
+        if(mat == BlockMaterialData.BEACON)
+        {
+            this.state = new BeaconImpl(this);
+        }
+        else if(mat == BlockMaterialData.BREWING_STAND_BLOCK) //TODO: what about BlockMaterialData.BREWING_STAND?
+        {
+            this.state = new BrewingStandImpl(this);
+        }
+        else if(mat == BlockMaterialData.CHEST || mat == BlockMaterialData.TRAPPED_CHEST)
+        {
+            this.state = new ChestImpl(this);
+        }
+        else if(mat == BlockMaterialData.COMMAND_BLOCK)
+        {
+            this.state = new CommandBlockImpl(this);
+        }
+        else if(mat == BlockMaterialData.DISPENSER)
+        {
+            this.state = new DispenserImpl(this);
+        }
+        else if(mat == BlockMaterialData.DROPPER)
+        {
+            this.state = new DropperImpl(this);
+        }
+        else if(mat == BlockMaterialData.FURNACE)
+        {
+            this.state = new FurnaceImpl(this);
+        }
+        else if(mat == BlockMaterialData.HOPPER)
+        {
+            this.state = new HopperImpl(this);
+        }
+        else if(mat == BlockMaterialData.JUKEBOX)
+        {
+            this.state = new JukeboxImpl(this);
+        }
+        else if(mat == BlockMaterialData.MOB_SPAWNER)
+        {
+            this.state = new MobSpawnerImpl(this);
+        }
+        else if(mat == BlockMaterialData.NOTEBLOCK)
+        {
+            this.state = new NoteBlockImpl(this);
+        }
+        else if(mat == BlockMaterialData.WALL_SIGN) //TODO: what about BlockMaterialData.SIGN?
+        {
+            this.state = new SignImpl(this);
+        }
+        else if(mat == BlockMaterialData.SKULL_BLOCK) //TODO: what about BlockMaterialData.SKULL?
+        {
+            this.state = new SkullImpl(this);
+        }
+        else
+        {
+            this.state = new BlockStateImpl(this); //
+        }
     }
 
     public BlockImpl(final int x, final int y, final int z, final ChunkImpl chunk)
@@ -126,6 +187,12 @@ public class BlockImpl implements Block
     public Optional<TileEntity> getTileEntity()
     {
         return Optional.ofNullable(this.chunk.getTileEntity(this));
+    }
+
+    @Override
+    public BlockState getState()
+    {
+        return this.state;
     }
 
     @Override

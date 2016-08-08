@@ -1,5 +1,6 @@
 package org.diorite.tileentity;
 
+import org.diorite.inventory.block.BeaconInventory;
 import org.diorite.inventory.item.meta.PotionMeta.PotionTypes;
 
 public interface TileEntityBeacon extends TileEntity
@@ -15,4 +16,6 @@ public interface TileEntityBeacon extends TileEntity
     PotionTypes getSecondaryEffect();
 
     void setSecondaryEffect(PotionTypes effect);
+
+    BeaconInventory getInventory();
 }

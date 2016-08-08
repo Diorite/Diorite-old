@@ -29,8 +29,11 @@ import java.util.Set;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import org.diorite.impl.inventory.block.DispenserInventoryImpl;
 import org.diorite.block.Block;
+import org.diorite.block.Dispenser;
 import org.diorite.inventory.InventoryType;
+import org.diorite.inventory.block.DispenserInventory;
 import org.diorite.inventory.item.ItemStack;
 import org.diorite.nbt.NbtTagCompound;
 import org.diorite.tileentity.TileEntityDispenser;
@@ -38,13 +41,15 @@ import org.diorite.utils.math.DioriteRandom;
 
 public class TileEntityDispenserImpl extends TileEntityImpl implements TileEntityDispenser
 {
-    private final Block block;
+    private final Dispenser block;
     private ItemStack[] items = new ItemStack[InventoryType.DISPENSER.getSize()];
+    private DispenserInventory inventory;
 
-    public TileEntityDispenserImpl(final Block block)
+    public TileEntityDispenserImpl(final Dispenser block)
     {
         super(block.getLocation());
         this.block = block;
+        this.inventory = new DispenserInventoryImpl(block);
     }
 
     @Override
@@ -56,7 +61,7 @@ public class TileEntityDispenserImpl extends TileEntityImpl implements TileEntit
     @Override
     public Block getBlock()
     {
-        return this.block;
+        return this.block.getBlock();
     }
 
     @Override
@@ -85,5 +90,11 @@ public class TileEntityDispenserImpl extends TileEntityImpl implements TileEntit
     public String toString()
     {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("block", this.block).toString();
+    }
+
+    @Override
+    public DispenserInventory getInventory()
+    {
+        return this.inventory;
     }
 }

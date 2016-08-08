@@ -31,11 +31,4 @@ import org.diorite.inventory.Inventory;
  */
 public interface Chest extends BlockState, BlockContainer
 {
-    /**
-     * Returns chest's inventory
-     *
-     * @return inventory
-     */
-    @Override
-    Inventory getInventory();
 }

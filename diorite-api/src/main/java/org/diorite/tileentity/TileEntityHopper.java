@@ -24,6 +24,9 @@
 
 package org.diorite.tileentity;
 
+import org.diorite.inventory.block.HopperInventory;
+
 public interface TileEntityHopper extends TileEntity
 {
+    HopperInventory getInventory();
 }

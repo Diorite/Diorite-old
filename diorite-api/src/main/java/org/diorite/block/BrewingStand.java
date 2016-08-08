@@ -100,12 +100,4 @@ public interface BrewingStand extends BlockState, BlockContainer
      * @param fuel is a new fuel.
      */
     void setFuel(ItemStack fuel);
-
-    /**
-     * Returns brewing stand's inventory
-     *
-     * @return inventory
-     */
-    @Override
-    BrewingStandInventory getInventory();
 }

@@ -27,23 +27,20 @@ package org.diorite.impl.block;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import org.diorite.impl.inventory.block.FurnaceInventoryImpl;
 import org.diorite.impl.tileentity.TileEntityFurnaceImpl;
 import org.diorite.block.Block;
 import org.diorite.block.Furnace;
-import org.diorite.inventory.block.FurnaceInventory;
+import org.diorite.inventory.Inventory;
 
 public class FurnaceImpl extends BlockStateImpl implements Furnace
 {
     private final TileEntityFurnaceImpl tileEntity;
-    private final FurnaceInventory      inventory;
 
     public FurnaceImpl(final Block block)
     {
         super(block);
 
         this.tileEntity = (TileEntityFurnaceImpl) block.getChunk().getTileEntity(block);
-        this.inventory = new FurnaceInventoryImpl(this);
     }
 
     @Override
@@ -83,15 +80,14 @@ public class FurnaceImpl extends BlockStateImpl implements Furnace
         this.tileEntity.setCookTime(cookTime);
     }
 
-    @Override
-    public FurnaceInventory getInventory()
+    public Inventory getInventory()
     {
-        return this.inventory;
+        return this.tileEntity.getInventory();
     }
 
     @Override
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("tileEntity", this.tileEntity).append("inventory", this.inventory).toString();
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("tileEntity", this.tileEntity).append("inventory", this.tileEntity.getInventory()).toString();
     }
 }

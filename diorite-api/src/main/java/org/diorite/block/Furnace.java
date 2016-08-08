@@ -58,12 +58,4 @@ public interface Furnace extends BlockState, BlockContainer
      * @param cookTime defines cook time
      */
     void setCookTime(short cookTime);
-
-    /**
-     * Returns furnace's inventory
-     *
-     * @return inventory
-     */
-    @Override
-    FurnaceInventory getInventory();
 }

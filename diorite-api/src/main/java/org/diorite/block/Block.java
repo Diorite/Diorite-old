@@ -75,6 +75,8 @@ public interface Block
      */
     Optional<TileEntity> getTileEntity();
 
+    BlockState getState();
+
     /**
      * Method to set type (id and sub-id) of block.
      * This method will only update local copy of it (this wrapper), block will be updated on map after calling {@link #update()} method.

@@ -36,27 +36,23 @@ import org.diorite.tileentity.TileEntityChest;
 public class ChestImpl extends BlockStateImpl implements Chest
 {
     private final TileEntityChest tileEntity;
-    private final Inventory       inventory;
 
     public ChestImpl(final Block block)
     {
         super(block);
 
         this.tileEntity = (TileEntityChest) block.getChunk().getTileEntity(block);
-
-        //TODO: return double chest inventory if needed
-        this.inventory = new ChestInventoryImpl(this);
     }
 
     @Override
     public Inventory getInventory()
     {
-        return this.inventory;
+        return this.tileEntity.getInventory();
     }
 
     @Override
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("tileEntity", this.tileEntity).append("inventory", this.inventory).toString();
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("tileEntity", this.tileEntity).append("inventory", this.tileEntity.getInventory()).toString();
     }
 }

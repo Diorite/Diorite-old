@@ -27,15 +27,18 @@ package org.diorite.impl.tileentity;
 import java.util.Set;
 
 import org.diorite.block.Block;
+import org.diorite.block.Hopper;
+import org.diorite.inventory.block.HopperInventory;
 import org.diorite.inventory.item.ItemStack;
 import org.diorite.tileentity.TileEntityHopper;
 import org.diorite.utils.math.DioriteRandom;
 
 public class TileEntityHopperImpl extends TileEntityImpl implements TileEntityHopper
 {
-    private final Block block;
+    private final Hopper          block;
+    private       HopperInventory inventory;
 
-    public TileEntityHopperImpl(final Block block)
+    public TileEntityHopperImpl(final Hopper block)
     {
         super(block.getLocation());
 
@@ -51,12 +54,18 @@ public class TileEntityHopperImpl extends TileEntityImpl implements TileEntityHo
     @Override
     public Block getBlock()
     {
-        return this.block;
+        return this.block.getBlock();
     }
 
     @Override
     public void simulateDrop(final DioriteRandom rand, final Set<ItemStack> drops)
     {
         //TODO
+    }
+
+    @Override
+    public HopperInventory getInventory()
+    {
+        return this.inventory;
     }
 }

@@ -24,6 +24,8 @@
 
 package org.diorite.tileentity;
 
+import org.diorite.inventory.block.FurnaceInventory;
+
 public interface TileEntityFurnace extends TileEntity
 {
     short getBurnTime();
@@ -33,4 +35,6 @@ public interface TileEntityFurnace extends TileEntity
     short getCookTime();
 
     void setCookTime(short cookTime);
+
+    FurnaceInventory getInventory();
 }
