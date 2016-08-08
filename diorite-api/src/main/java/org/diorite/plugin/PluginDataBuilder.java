@@ -38,6 +38,7 @@ public class PluginDataBuilder implements AnyPluginData
     private String author;
     private String description;
     private String website;
+    private String basePackage;
 
     public PluginDataBuilder(final Plugin plugin)
     {
@@ -47,6 +48,7 @@ public class PluginDataBuilder implements AnyPluginData
         this.author = plugin.author();
         this.description = plugin.description();
         this.website = plugin.website();
+        this.basePackage = plugin.basePackage();
     }
 
     public PluginDataBuilder(final String name)
@@ -125,6 +127,13 @@ public class PluginDataBuilder implements AnyPluginData
         return this.website;
     }
 
+    @Override
+    public String getBasePackage()
+    {
+        return this.basePackage;
+    }
+
+
     /**
      * Set name of plugin, can't be null.
      *
@@ -201,6 +210,20 @@ public class PluginDataBuilder implements AnyPluginData
     public PluginDataBuilder setWebsite(final String website)
     {
         this.website = (website == null) ? "" : website;
+        return this;
+    }
+
+    /**
+     * Set base package of plugin.
+     *
+     * @param basePackage Base package of plugin.
+     *                    If empty will be filled automatically.
+     *
+     * @return builder itself.
+     */
+    public PluginDataBuilder setBasePackage(final String basePackage)
+    {
+        this.basePackage = (basePackage == null) ? "" : basePackage;
         return this;
     }
 

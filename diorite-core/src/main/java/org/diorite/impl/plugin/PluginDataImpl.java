@@ -41,6 +41,7 @@ public class PluginDataImpl implements PluginData
     private final String author;
     private final String description;
     private final String website;
+    private final String basePackage;
 
     public PluginDataImpl(final Plugin plugin)
     {
@@ -50,6 +51,7 @@ public class PluginDataImpl implements PluginData
         this.author = plugin.author();
         this.description = plugin.description();
         this.website = plugin.website();
+        this.basePackage = plugin.basePackage();
     }
 
     public PluginDataImpl(final PluginDataBuilder builder)
@@ -60,6 +62,7 @@ public class PluginDataImpl implements PluginData
         this.author = builder.getAuthor();
         this.description = builder.getDescription();
         this.website = builder.getWebsite();
+        this.basePackage = builder.getBasePackage();
     }
 
     public PluginDataImpl(final String name)
@@ -71,6 +74,7 @@ public class PluginDataImpl implements PluginData
         this.author = "unknown";
         this.description = "";
         this.website = "";
+        this.basePackage = "";
     }
 
     public PluginDataImpl(final String name, final String version)
@@ -82,6 +86,7 @@ public class PluginDataImpl implements PluginData
         this.author = "unknown";
         this.description = "";
         this.website = "";
+        this.basePackage = "";
     }
 
     public PluginDataImpl(final String name, final String version, final String author)
@@ -93,9 +98,10 @@ public class PluginDataImpl implements PluginData
         this.prefix = (this.name + " v" + this.version);
         this.description = "";
         this.website = "";
+        this.basePackage = "";
     }
 
-    public PluginDataImpl(final String name, final String version, final String prefix, final String author, final String description, final String website)
+    public PluginDataImpl(final String name, final String version, final String prefix, final String author, final String description, final String website, final String basePackage)
     {
         Validate.notNull(name, "name can't be null!");
         this.name = name;
@@ -104,6 +110,7 @@ public class PluginDataImpl implements PluginData
         this.prefix = (prefix == null) ? (this.name + " v" + this.version) : StringUtils.replaceEach(prefix, new String[]{"%name%", "%version%"}, new String[]{this.name, this.version});
         this.description = (description == null) ? "" : description;
         this.website = (website == null) ? "" : website;
+        this.basePackage = (basePackage == null) ? "" : basePackage;
     }
 
     @Override
@@ -140,6 +147,12 @@ public class PluginDataImpl implements PluginData
     public String getWebsite()
     {
         return this.website;
+    }
+
+    @Override
+    public String getBasePackage()
+    {
+        return this.basePackage;
     }
 
     @Override

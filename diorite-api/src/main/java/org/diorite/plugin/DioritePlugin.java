@@ -26,6 +26,7 @@ package org.diorite.plugin;
 
 import java.io.File;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.slf4j.Logger;
@@ -112,6 +113,13 @@ public abstract class DioritePlugin implements BasePlugin
     }
 
     @Override
+    public String getBasePackage()
+    {
+        this.initCheck();
+        return this.pluginData.getBasePackage();
+    }
+
+    @Override
     public Logger getLogger()
     {
         this.initCheck();
@@ -140,18 +148,20 @@ public abstract class DioritePlugin implements BasePlugin
         return this.dataFolder;
     }
 
-//    protected final DioritePlugin instance() // poor method made by NorthPL, so useful, so powerful, much wow.
-//    {
-//        this.initCheck();
-//        return this;
-//    }
-
     @Override
     public final void init(final File pluginsDirectory, final PluginClassLoader classLoader, final PluginLoader pluginLoader, final PluginDataBuilder data)
     {
         if (this.initialised)
         {
             throw new RuntimeException("Internal method");
+        }
+        if (StringUtils.isEmpty(data.getBasePackage()))
+        {
+            data.setBasePackage(this.getClass().getPackage().getName());
+        }
+        else if (Package.getPackage(data.getBasePackage()) == null)
+        {
+            throw new IllegalArgumentException("Specified base package " + data.getBasePackage() + " doesn't exists.");
         }
         this.pluginFolder = pluginsDirectory;
         this.classLoader = classLoader;

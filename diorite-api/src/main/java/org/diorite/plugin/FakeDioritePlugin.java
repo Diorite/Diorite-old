@@ -104,6 +104,12 @@ public class FakeDioritePlugin implements ChildPlugin
     }
 
     @Override
+    public String getBasePackage()
+    {
+        return this.parent.getBasePackage();
+    }
+
+    @Override
     public Logger getLogger()
     {
         if (this.logger == null)
@@ -122,7 +128,7 @@ public class FakeDioritePlugin implements ChildPlugin
     @Override
     public PluginClassLoader getClassLoader()
     {
-        return null;
+        return this.parent.getClassLoader();
     }
 
     @Override

@@ -98,6 +98,13 @@ public interface BasePlugin
     String getWebsite();
 
     /**
+     * Returns base package of plugin, can't be null.
+     *
+     * @return base package of plugin.
+     */
+    String getBasePackage();
+
+    /**
      * Returns Logger for this plugin.
      *
      * @return Logger for this plugin.

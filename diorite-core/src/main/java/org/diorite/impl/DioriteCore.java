@@ -102,7 +102,6 @@ import org.diorite.impl.world.tick.TickGroups;
 import org.diorite.Core;
 import org.diorite.Diorite;
 import org.diorite.ItemFactory;
-import org.diorite.beans.BeanManager;
 import org.diorite.cfg.DioriteConfig.OnlineMode;
 import org.diorite.cfg.messages.DioriteMessages;
 import org.diorite.cfg.system.Template;
@@ -1090,7 +1089,7 @@ public class DioriteCore implements Core
             s.dioriteBeans.doScan(s.getClass().getClassLoader(), "org.diorite");
             for (final BasePlugin basePlugin : s.pluginManager.getPlugins())
             {
-                s.dioriteBeans.doScan(basePlugin.getClassLoader(), basePlugin.getClass().getPackage().getName()); // TODO allow to set own base package
+                s.dioriteBeans.doScan(basePlugin.getClassLoader(), basePlugin.getBasePackage());
             }
         });
         initPipeline.addLast("DioriteCore|LoadBasicSettings", (s, p, d) -> {

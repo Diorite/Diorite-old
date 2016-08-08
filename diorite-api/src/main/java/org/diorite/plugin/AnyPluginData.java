@@ -68,4 +68,6 @@ interface AnyPluginData
      * @return website of plugin.
      */
     String getWebsite();
+
+    String getBasePackage();
 }

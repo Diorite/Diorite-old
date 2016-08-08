@@ -75,4 +75,11 @@ public @interface Plugin
      */
     String website() default "";
 
+    /**
+     * Base package of plugin.
+     * Default set to main class package.
+     *
+     * @return plugin's base package.
+     */
+    String basePackage() default "";
 }
