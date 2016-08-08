@@ -215,6 +215,7 @@ public class BlockImpl implements Block
     public void update()
     {
         this.type = this.chunk.getBlockType(this.x, this.y, this.z);
+        this.state.update();
     }
 
     @Override
