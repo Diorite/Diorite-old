@@ -695,12 +695,19 @@ public class ChunkImpl implements Chunk
 
     public void checkTileEntity(final int x, final int y, final int z)
     {
-        final Block block = this.getBlock(x, y, z); // TODO do it better? Previously check if block can have tile entity?
-        // TODO check is it valid block
+        final Block block = this.getBlock(x, y, z);
         final long blockLocation = block.getLocation().asLong();
         if (this.tileEntities.containsKey(blockLocation))
         {
-            // TODO validate type of TileEntity
+            if (block.getType().equals(BlockMaterialData.AIR))
+            {
+                this.tileEntities.remove(blockLocation);
+            }
+            //else if () TODO check if tile entity type match block type to prevent ClassCastException and other issues.
+            {
+                final TileEntityImpl tileEntity = this.tileEntities.get(blockLocation);
+
+            }
             return;
         }
 
@@ -716,8 +723,6 @@ public class ChunkImpl implements Chunk
     @Override
     public TileEntity getTileEntity(final Block block)
     {
-        final TileEntity tileEntity = this.tileEntities.get(block.getLocation().asLong());
-        // TODO throw exception, block hasn't tile entity
-        return tileEntity;
+        return this.tileEntities.get(block.getLocation().asLong());
     }
 }

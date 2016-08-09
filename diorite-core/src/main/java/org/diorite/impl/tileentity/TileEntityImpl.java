@@ -66,6 +66,7 @@ public abstract class TileEntityImpl extends GameObjectImpl implements TileEntit
     @Override
     public void saveToNbt(final NbtTagCompound nbtTileEntity)
     {
+        nbtTileEntity.setString("id", "Furnace"); // TODO testing. ID is needed when we're sending NBT to player
         nbtTileEntity.setInt("x", this.location.getX());
         nbtTileEntity.setInt("y", this.location.getY());
         nbtTileEntity.setInt("z", this.location.getZ());

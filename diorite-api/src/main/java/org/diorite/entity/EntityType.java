@@ -201,6 +201,7 @@ public class EntityType extends ASimpleEnum<EntityType>
     static
     {
         EntityType.register(PLAYER);
+        EntityType.register(POLAR_BEAR);
         EntityType.register(CREEPER);
         EntityType.register(SKELETON);
         EntityType.register(SPIDER);
