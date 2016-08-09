@@ -31,7 +31,10 @@ import java.util.Optional;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import org.diorite.impl.DioriteCore;
 import org.diorite.impl.world.chunk.ChunkImpl;
+import org.diorite.block.BlockState;
+import org.diorite.entity.Player;
 import org.diorite.material.BlockMaterialData;
 import org.diorite.utils.lazy.LazyValue;
 import org.diorite.utils.math.geometry.BoundingBox;
@@ -48,6 +51,7 @@ public class BlockImpl implements Block
     private final ChunkImpl              chunk;
     private       BlockMaterialData      type;
     private final LazyValue<BoundingBox> lazyBox;
+    private       BlockState             state;
 
     public BlockImpl(final int x, final int y, final int z, final ChunkImpl chunk, final BlockMaterialData type)
     {
@@ -68,6 +72,7 @@ public class BlockImpl implements Block
 
             return BoundingBox.fromCorners(new Vector3d(x1, y1, z1), new Vector3d(x2, y2, z2));
         });
+        this.state = getBlockState(this);
     }
 
     public BlockImpl(final int x, final int y, final int z, final ChunkImpl chunk)
@@ -90,6 +95,69 @@ public class BlockImpl implements Block
 
             return BoundingBox.fromCorners(new Vector3d(x1, this.y, z1), new Vector3d(x2, this.y + 1, z2));
         });
+        this.state = getBlockState(this);
+    }
+
+    private static BlockState getBlockState(Block block)
+    {
+        BlockMaterialData mat = block.getType();
+
+        if(mat == BlockMaterialData.BEACON)
+        {
+            return new BeaconImpl(block);
+        }
+        else if(mat == BlockMaterialData.BREWING_STAND_BLOCK) //TODO: what about BlockMaterialData.BREWING_STAND?
+        {
+            return new BrewingStandImpl(block);
+        }
+        else if(mat == BlockMaterialData.CHEST || mat == BlockMaterialData.TRAPPED_CHEST)
+        {
+            return new ChestImpl(block);
+        }
+        else if(mat == BlockMaterialData.COMMAND_BLOCK)
+        {
+            return new CommandBlockImpl(block);
+        }
+        else if(mat == BlockMaterialData.DISPENSER)
+        {
+            return new DispenserImpl(block);
+        }
+        else if(mat == BlockMaterialData.DROPPER)
+        {
+            return new DropperImpl(block);
+        }
+        else if(mat == BlockMaterialData.FURNACE)
+        {
+            return new FurnaceImpl(block);
+        }
+        else if(mat == BlockMaterialData.HOPPER)
+        {
+            return new HopperImpl(block);
+        }
+        else if(mat == BlockMaterialData.JUKEBOX)
+        {
+            return new JukeboxImpl(block);
+        }
+        else if(mat == BlockMaterialData.MOB_SPAWNER)
+        {
+            return new MobSpawnerImpl(block);
+        }
+        else if(mat == BlockMaterialData.NOTEBLOCK)
+        {
+            return new NoteBlockImpl(block);
+        }
+        else if(mat == BlockMaterialData.WALL_SIGN) //TODO: what about BlockMaterialData.SIGN?
+        {
+            return new SignImpl(block);
+        }
+        else if(mat == BlockMaterialData.SKULL_BLOCK) //TODO: what about BlockMaterialData.SKULL?
+        {
+            return new SkullImpl(block);
+        }
+        else
+        {
+            return null;
+        }
     }
 
     @Override
@@ -129,6 +197,12 @@ public class BlockImpl implements Block
     }
 
     @Override
+    public BlockState getState()
+    {
+        return this.state;
+    }
+
+    @Override
     public void setType(final BlockMaterialData type)
     {
         this.type = type;
@@ -148,6 +222,11 @@ public class BlockImpl implements Block
     public void update()
     {
         this.type = this.chunk.getBlockType(this.x, this.y, this.z);
+
+        if(this.state != null)
+        {
+            this.state.update();
+        }
     }
 
     @Override

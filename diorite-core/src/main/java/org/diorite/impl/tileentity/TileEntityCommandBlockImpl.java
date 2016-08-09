@@ -27,17 +27,18 @@ package org.diorite.impl.tileentity;
 import java.util.Set;
 
 import org.diorite.block.Block;
+import org.diorite.block.CommandBlock;
 import org.diorite.inventory.item.ItemStack;
 import org.diorite.tileentity.TileEntityCommandBlock;
 import org.diorite.utils.math.DioriteRandom;
 
 public class TileEntityCommandBlockImpl extends TileEntityImpl implements TileEntityCommandBlock
 {
-    private final Block block;
-    private String command;
-    private String name;
+    private final CommandBlock block;
+    private       String       command;
+    private       String       name;
 
-    public TileEntityCommandBlockImpl(final Block block)
+    public TileEntityCommandBlockImpl(final CommandBlock block)
     {
         super(block.getLocation());
 
@@ -53,7 +54,7 @@ public class TileEntityCommandBlockImpl extends TileEntityImpl implements TileEn
     @Override
     public Block getBlock()
     {
-        return this.block;
+        return this.block.getBlock();
     }
 
     @Override

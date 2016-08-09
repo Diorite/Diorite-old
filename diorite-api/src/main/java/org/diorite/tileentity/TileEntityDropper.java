@@ -24,6 +24,9 @@
 
 package org.diorite.tileentity;
 
+import org.diorite.inventory.block.DropperInventory;
+
 public interface TileEntityDropper extends TileEntity
 {
+    DropperInventory getInventory();
 }

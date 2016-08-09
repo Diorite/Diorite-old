@@ -24,6 +24,9 @@
 
 package org.diorite.tileentity;
 
+import org.diorite.inventory.Inventory;
+
 public interface TileEntityChest extends TileEntity
 {
+    Inventory getInventory();
 }

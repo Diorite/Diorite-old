@@ -26,12 +26,12 @@ package org.diorite.impl.tileentity;
 
 import org.diorite.impl.world.WorldImpl;
 import org.diorite.TileEntityFactory;
-import org.diorite.block.Block;
+import org.diorite.block.BlockState;
 import org.diorite.nbt.NbtTagCompound;
 
 public interface ITileEntityFactory extends TileEntityFactory
 {
-    TileEntityImpl createTileEntity(Block block);
+    TileEntityImpl createTileEntity(BlockState block);
 
     TileEntityImpl createTileEntity(NbtTagCompound nbt, WorldImpl world);
 }

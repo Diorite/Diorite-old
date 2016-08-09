@@ -41,6 +41,8 @@ import org.diorite.impl.tileentity.TileEntityImpl;
 import org.diorite.impl.world.WorldImpl;
 import org.diorite.impl.world.chunk.palette.PaletteImpl;
 import org.diorite.block.Block;
+import org.diorite.block.BlockLocation;
+import org.diorite.entity.Player;
 import org.diorite.event.EventType;
 import org.diorite.event.chunk.ChunkUnloadEvent;
 import org.diorite.material.BlockMaterialData;
@@ -704,7 +706,7 @@ public class ChunkImpl implements Chunk
             return;
         }
 
-        final TileEntityImpl tileEntity = DioriteCore.getInstance().getServerManager().getTileEntityFactory().createTileEntity(block);
+        final TileEntityImpl tileEntity = DioriteCore.getInstance().getServerManager().getTileEntityFactory().createTileEntity(block); // TODO removed block.getState() during merging. Re-add
         if (tileEntity == null)
         {
             return;

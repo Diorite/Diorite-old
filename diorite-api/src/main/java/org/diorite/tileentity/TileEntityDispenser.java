@@ -24,6 +24,9 @@
 
 package org.diorite.tileentity;
 
+import org.diorite.inventory.block.DispenserInventory;
+
 public interface TileEntityDispenser extends TileEntity
 {
+    DispenserInventory getInventory();
 }

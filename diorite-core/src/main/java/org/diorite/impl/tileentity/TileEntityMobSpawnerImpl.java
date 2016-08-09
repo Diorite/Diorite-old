@@ -27,6 +27,7 @@ package org.diorite.impl.tileentity;
 import java.util.Set;
 
 import org.diorite.block.Block;
+import org.diorite.block.MobSpawner;
 import org.diorite.entity.EntityType;
 import org.diorite.inventory.item.ItemStack;
 import org.diorite.tileentity.TileEntityMobSpawner;
@@ -34,11 +35,11 @@ import org.diorite.utils.math.DioriteRandom;
 
 public class TileEntityMobSpawnerImpl extends TileEntityImpl implements TileEntityMobSpawner
 {
-    private final Block      block;
+    private final MobSpawner block;
     private       EntityType entityType;
     private       int        spawnDelay;
 
-    public TileEntityMobSpawnerImpl(final Block block)
+    public TileEntityMobSpawnerImpl(final MobSpawner block)
     {
         super(block.getLocation());
 
@@ -55,7 +56,7 @@ public class TileEntityMobSpawnerImpl extends TileEntityImpl implements TileEnti
     @Override
     public Block getBlock()
     {
-        return this.block;
+        return this.block.getBlock();
     }
 
     @Override

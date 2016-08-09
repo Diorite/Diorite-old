@@ -27,33 +27,29 @@ package org.diorite.impl.block;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import org.diorite.impl.inventory.block.DropperInventoryImpl;
 import org.diorite.block.Block;
 import org.diorite.block.Dropper;
-import org.diorite.inventory.block.DropperInventory;
+import org.diorite.inventory.Inventory;
 import org.diorite.tileentity.TileEntityDropper;
 
 public class DropperImpl extends BlockStateImpl implements Dropper
 {
     private final TileEntityDropper tileEntity;
-    private final DropperInventory  inventory;
 
     public DropperImpl(final Block block)
     {
         super(block);
         this.tileEntity = (TileEntityDropper) block.getChunk().getTileEntity(block);
-        this.inventory = new DropperInventoryImpl(this);
     }
 
-    @Override
-    public DropperInventory getInventory()
+    public Inventory getInventory()
     {
-        return this.inventory;
+        return this.tileEntity.getInventory();
     }
 
     @Override
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("tileEntity", this.tileEntity).append("inventory", this.inventory).toString();
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("tileEntity", this.tileEntity).append("inventory", this.tileEntity.getInventory()).toString();
     }
 }

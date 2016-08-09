@@ -24,28 +24,33 @@
 
 package org.diorite.impl.block;
 
-import org.diorite.impl.inventory.block.HopperInventoryImpl;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import org.diorite.block.Block;
 import org.diorite.block.Hopper;
-import org.diorite.inventory.block.HopperInventory;
+import org.diorite.inventory.Inventory;
 import org.diorite.tileentity.TileEntityHopper;
 
 public class HopperImpl extends BlockStateImpl implements Hopper
 {
     private final TileEntityHopper tileEntity;
-    private final HopperInventory inventory;
 
     public HopperImpl(final Block block)
     {
         super(block);
 
         this.tileEntity = (TileEntityHopper) block.getChunk().getTileEntity(block);
-        this.inventory = new HopperInventoryImpl(this);
+    }
+
+    public Inventory getInventory()
+    {
+        return this.tileEntity.getInventory();
     }
 
     @Override
-    public HopperInventory getInventory()
+    public String toString()
     {
-        return this.inventory;
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("tileEntity", this.tileEntity).append("inventory", this.tileEntity.getInventory()).toString();
     }
 }

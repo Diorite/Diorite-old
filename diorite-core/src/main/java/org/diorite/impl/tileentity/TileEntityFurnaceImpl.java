@@ -31,8 +31,11 @@ import java.util.Set;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import org.diorite.impl.inventory.block.FurnaceInventoryImpl;
 import org.diorite.block.Block;
+import org.diorite.block.Furnace;
 import org.diorite.inventory.InventoryType;
+import org.diorite.inventory.block.FurnaceInventory;
 import org.diorite.inventory.item.BaseItemStack;
 import org.diorite.inventory.item.ItemStack;
 import org.diorite.material.FuelMat;
@@ -45,15 +48,17 @@ import org.diorite.utils.math.DioriteRandom;
 public class TileEntityFurnaceImpl extends TileEntityImpl implements TileEntityFurnace
 {
     private static final int SMELT_DURATION = 200;
-    private final Block block;
+    private final Furnace block;
     private       short burnTime;
     private       short cookTime; //AS TICKS
     private ItemStack[] items = new ItemStack[InventoryType.FURNACE.getSize()];
+    private FurnaceInventory inventory;
 
-    public TileEntityFurnaceImpl(final Block block)
+    public TileEntityFurnaceImpl(final Furnace block)
     {
         super(block.getLocation());
         this.block = block;
+        this.inventory = new FurnaceInventoryImpl(block);
     }
 
     @Override
@@ -113,7 +118,7 @@ public class TileEntityFurnaceImpl extends TileEntityImpl implements TileEntityF
     @Override
     public Block getBlock()
     {
-        return this.block;
+        return this.block.getBlock();
     }
 
     @Override
@@ -144,6 +149,12 @@ public class TileEntityFurnaceImpl extends TileEntityImpl implements TileEntityF
     public void setCookTime(final short cookTime)
     {
         this.cookTime = cookTime;
+    }
+
+    @Override
+    public FurnaceInventory getInventory()
+    {
+        return this.inventory;
     }
 
     public static int getFuelTime(final ItemStack fuel)

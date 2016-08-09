@@ -27,94 +27,90 @@ package org.diorite.impl.block;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import org.diorite.impl.inventory.block.BrewingStandInventoryImpl;
 import org.diorite.block.Block;
 import org.diorite.block.BrewingStand;
-import org.diorite.inventory.block.BrewingStandInventory;
+import org.diorite.inventory.Inventory;
 import org.diorite.inventory.item.ItemStack;
 import org.diorite.tileentity.TileEntityBrewingStand;
 
 public class BrewingStandImpl extends BlockStateImpl implements BrewingStand
 {
     private final TileEntityBrewingStand tileEntity;
-    private final BrewingStandInventory  inventory;
 
     public BrewingStandImpl(final Block block)
     {
         super(block);
         this.tileEntity = (TileEntityBrewingStand) block.getChunk().getTileEntity(block);
-        this.inventory = new BrewingStandInventoryImpl(this);
     }
 
     @Override
     public ItemStack getLeftInput()
     {
-        return this.inventory.getItem(0);
+        return this.tileEntity.getInventory().getItem(0);
     }
 
     @Override
     public void setLeftInput(final ItemStack input)
     {
-        this.inventory.setItem(0, input);
+        this.tileEntity.getInventory().setItem(0, input);
     }
 
     @Override
     public ItemStack getMiddleInput()
     {
-        return this.inventory.getItem(1);
+        return this.tileEntity.getInventory().getItem(1);
     }
 
     @Override
     public void setMiddleInput(final ItemStack input)
     {
-        this.inventory.setItem(1, input);
+        this.tileEntity.getInventory().setItem(1, input);
     }
 
     @Override
     public ItemStack getRightInput()
     {
-        return this.inventory.getItem(2);
+        return this.tileEntity.getInventory().getItem(2);
     }
 
     @Override
     public void setRightInput(final ItemStack input)
     {
-        this.inventory.setItem(2, input);
+        this.tileEntity.getInventory().setItem(2, input);
     }
 
     @Override
     public ItemStack getIngredient()
     {
-        return this.inventory.getItem(3);
+        return this.tileEntity.getInventory().getItem(3);
     }
 
     @Override
     public void setIngredient(final ItemStack ingredient)
     {
-        this.inventory.setItem(3, ingredient);
+        this.tileEntity.getInventory().setItem(3, ingredient);
     }
 
     @Override
     public ItemStack getFuel()
     {
-        return this.inventory.getItem(4);
+        return this.tileEntity.getInventory().getItem(4);
     }
 
     @Override
     public void setFuel(final ItemStack fuel)
     {
-        this.inventory.setItem(4, fuel);
+        this.tileEntity.getInventory().setItem(4, fuel);
     }
 
-    @Override
-    public BrewingStandInventory getInventory()
+    public Inventory getInventory()
     {
-        return this.inventory;
+        return this.tileEntity.getInventory();
     }
 
     @Override
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("tileEntity", this.tileEntity).append("inventory", this.inventory).toString();
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("tileEntity", this.tileEntity).append("inventory", this.tileEntity.getInventory()).toString();
     }
 }

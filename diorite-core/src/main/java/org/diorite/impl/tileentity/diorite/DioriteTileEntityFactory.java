@@ -25,6 +25,19 @@
 package org.diorite.impl.tileentity.diorite;
 
 import org.diorite.impl.DioriteCore;
+import org.diorite.impl.block.BeaconImpl;
+import org.diorite.impl.block.BrewingStandImpl;
+import org.diorite.impl.block.ChestImpl;
+import org.diorite.impl.block.CommandBlockImpl;
+import org.diorite.impl.block.DispenserImpl;
+import org.diorite.impl.block.DropperImpl;
+import org.diorite.impl.block.FurnaceImpl;
+import org.diorite.impl.block.HopperImpl;
+import org.diorite.impl.block.JukeboxImpl;
+import org.diorite.impl.block.MobSpawnerImpl;
+import org.diorite.impl.block.NoteBlockImpl;
+import org.diorite.impl.block.SignImpl;
+import org.diorite.impl.block.SkullImpl;
 import org.diorite.impl.tileentity.ITileEntityFactory;
 import org.diorite.impl.tileentity.TileEntityBeaconImpl;
 import org.diorite.impl.tileentity.TileEntityBrewingStandImpl;
@@ -43,6 +56,7 @@ import org.diorite.impl.tileentity.TileEntitySkullImpl;
 import org.diorite.impl.world.WorldImpl;
 import org.diorite.block.Block;
 import org.diorite.block.BlockLocation;
+import org.diorite.block.BlockState;
 import org.diorite.material.BlockMaterialData;
 import org.diorite.nbt.NbtTagCompound;
 
@@ -56,7 +70,7 @@ public class DioriteTileEntityFactory implements ITileEntityFactory
     }
 
     @Override
-    public TileEntityImpl createTileEntity(final Block block)
+    public TileEntityImpl createTileEntity(final BlockState block)
     {
         //TODO
 
@@ -66,55 +80,55 @@ public class DioriteTileEntityFactory implements ITileEntityFactory
 
         if(mat == BlockMaterialData.BEACON)
         {
-            tileEntity = new TileEntityBeaconImpl(block);
+            tileEntity = new TileEntityBeaconImpl((BeaconImpl) block);
         }
         else if(mat == BlockMaterialData.BREWING_STAND_BLOCK) //TODO: what about BlockMaterialData.BREWING_STAND?
         {
-            tileEntity = new TileEntityBrewingStandImpl(block);
+            tileEntity = new TileEntityBrewingStandImpl((BrewingStandImpl) block);
         }
         else if(mat == BlockMaterialData.CHEST || mat == BlockMaterialData.TRAPPED_CHEST)
         {
-            tileEntity = new TileEntityChestImpl(block);
+            tileEntity = new TileEntityChestImpl((ChestImpl) block);
         }
         else if(mat == BlockMaterialData.COMMAND_BLOCK)
         {
-            tileEntity = new TileEntityCommandBlockImpl(block);
+            tileEntity = new TileEntityCommandBlockImpl((CommandBlockImpl) block);
         }
         else if(mat == BlockMaterialData.DISPENSER)
         {
-            tileEntity = new TileEntityDispenserImpl(block);
+            tileEntity = new TileEntityDispenserImpl((DispenserImpl) block);
         }
         else if(mat == BlockMaterialData.DROPPER)
         {
-            tileEntity = new TileEntityDropperImpl(block);
+            tileEntity = new TileEntityDropperImpl((DropperImpl) block);
         }
         else if(mat == BlockMaterialData.FURNACE)
         {
-            tileEntity = new TileEntityFurnaceImpl(block);
+            tileEntity = new TileEntityFurnaceImpl((FurnaceImpl) block);
         }
         else if(mat == BlockMaterialData.HOPPER)
         {
-            tileEntity = new TileEntityHopperImpl(block);
+            tileEntity = new TileEntityHopperImpl((HopperImpl) block);
         }
         else if(mat == BlockMaterialData.JUKEBOX)
         {
-            tileEntity = new TileEntityJukeboxImpl(block);
+            tileEntity = new TileEntityJukeboxImpl((JukeboxImpl) block);
         }
         else if(mat == BlockMaterialData.MOB_SPAWNER)
         {
-            tileEntity = new TileEntityMobSpawnerImpl(block);
+            tileEntity = new TileEntityMobSpawnerImpl((MobSpawnerImpl) block);
         }
         else if(mat == BlockMaterialData.NOTEBLOCK)
         {
-            tileEntity = new TileEntityNoteBlockImpl(block);
+            tileEntity = new TileEntityNoteBlockImpl((NoteBlockImpl) block);
         }
         else if(mat == BlockMaterialData.WALL_SIGN) //TODO: what about BlockMaterialData.SIGN?
         {
-            tileEntity = new TileEntitySignImpl(block);
+            tileEntity = new TileEntitySignImpl((SignImpl) block);
         }
         else if(mat == BlockMaterialData.SKULL_BLOCK) //TODO: what about BlockMaterialData.SKULL?
         {
-            tileEntity = new TileEntitySkullImpl(block);
+            tileEntity = new TileEntitySkullImpl((SkullImpl) block);
         }
 
         return tileEntity;
@@ -126,7 +140,7 @@ public class DioriteTileEntityFactory implements ITileEntityFactory
         final BlockLocation blockLocation = new BlockLocation(nbt.getInt("x"), nbt.getInt("y"), nbt.getInt("z"));
         final Block block = world.getBlock(blockLocation);
 
-        TileEntityImpl tileEntity = createTileEntity(block);
+        TileEntityImpl tileEntity = createTileEntity(block.getState());
         tileEntity.loadFromNbt(nbt);
 
         return tileEntity;

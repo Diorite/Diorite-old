@@ -28,6 +28,7 @@ import java.util.Set;
 
 import org.diorite.block.Block;
 import org.diorite.block.BlockFace;
+import org.diorite.block.Skull;
 import org.diorite.inventory.item.ItemStack;
 import org.diorite.material.SkullType;
 import org.diorite.tileentity.TileEntitySkull;
@@ -35,11 +36,11 @@ import org.diorite.utils.math.DioriteRandom;
 
 public class TileEntitySkullImpl extends TileEntityImpl implements TileEntitySkull
 {
-    private final Block     block;
+    private final Skull     block;
     private       BlockFace rotation;
     private       SkullType skullType;
 
-    public TileEntitySkullImpl(final Block block)
+    public TileEntitySkullImpl(final Skull block)
     {
         super(block.getLocation());
 
@@ -57,7 +58,7 @@ public class TileEntitySkullImpl extends TileEntityImpl implements TileEntitySku
     @Override
     public Block getBlock()
     {
-        return this.block;
+        return this.block.getBlock();
     }
 
     @Override

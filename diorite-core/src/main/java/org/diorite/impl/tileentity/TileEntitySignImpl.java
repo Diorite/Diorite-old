@@ -27,6 +27,7 @@ package org.diorite.impl.tileentity;
 import java.util.Set;
 
 import org.diorite.block.Block;
+import org.diorite.block.Sign;
 import org.diorite.block.Sign.SignLine;
 import org.diorite.inventory.item.ItemStack;
 import org.diorite.tileentity.TileEntitySign;
@@ -34,10 +35,10 @@ import org.diorite.utils.math.DioriteRandom;
 
 public class TileEntitySignImpl extends TileEntityImpl implements TileEntitySign
 {
-    private final Block     block;
-    private       String[]  lines;
+    private final Sign     block;
+    private       String[] lines;
 
-    public TileEntitySignImpl(final Block block)
+    public TileEntitySignImpl(final Sign block)
     {
         super(block.getLocation());
 
@@ -54,7 +55,7 @@ public class TileEntitySignImpl extends TileEntityImpl implements TileEntitySign
     @Override
     public Block getBlock()
     {
-        return this.block;
+        return this.block.getBlock();
     }
 
     @Override

@@ -30,7 +30,10 @@ import java.util.Set;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import org.diorite.impl.inventory.block.ChestInventoryImpl;
 import org.diorite.block.Block;
+import org.diorite.block.Chest;
+import org.diorite.inventory.Inventory;
 import org.diorite.inventory.InventoryType;
 import org.diorite.inventory.item.ItemStack;
 import org.diorite.nbt.NbtTagCompound;
@@ -39,14 +42,16 @@ import org.diorite.utils.math.DioriteRandom;
 
 public class TileEntityChestImpl extends TileEntityImpl implements TileEntityChest
 {
-    private final Block block;
+    private final Chest block;
     private ItemStack[] items = new ItemStack[InventoryType.CHEST.getSize()];
+    private Inventory inventory;
 
-    public TileEntityChestImpl(final Block block)
+    public TileEntityChestImpl(final Chest block)
     {
         super(block.getLocation());
 
         this.block = block;
+        this.inventory = new ChestInventoryImpl(block); //TODO: check for double chest
     }
 
     @Override
@@ -58,7 +63,7 @@ public class TileEntityChestImpl extends TileEntityImpl implements TileEntityChe
     @Override
     public Block getBlock()
     {
-        return this.block;
+        return this.block.getBlock();
     }
 
     @Override
@@ -88,5 +93,11 @@ public class TileEntityChestImpl extends TileEntityImpl implements TileEntityChe
     public String toString()
     {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("block", this.block).toString();
+    }
+
+    @Override
+    public Inventory getInventory()
+    {
+        return this.inventory;
     }
 }

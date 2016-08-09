@@ -27,6 +27,7 @@ package org.diorite.impl.tileentity;
 import java.util.Set;
 
 import org.diorite.block.Block;
+import org.diorite.block.Jukebox;
 import org.diorite.inventory.item.ItemStack;
 import org.diorite.material.items.RecordMat;
 import org.diorite.tileentity.TileEntityJukebox;
@@ -34,10 +35,10 @@ import org.diorite.utils.math.DioriteRandom;
 
 public class TileEntityJukeboxImpl extends TileEntityImpl implements TileEntityJukebox
 {
-    private final Block     block;
+    private final Jukebox   block;
     private       RecordMat record;
 
-    public TileEntityJukeboxImpl(final Block block)
+    public TileEntityJukeboxImpl(final Jukebox block)
     {
         super(block.getLocation());
 
@@ -53,7 +54,7 @@ public class TileEntityJukeboxImpl extends TileEntityImpl implements TileEntityJ
     @Override
     public Block getBlock()
     {
-        return this.block;
+        return this.block.getBlock();
     }
 
     @Override

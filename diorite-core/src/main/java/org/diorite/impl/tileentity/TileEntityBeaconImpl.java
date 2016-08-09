@@ -11,8 +11,11 @@ import java.util.Set;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import org.diorite.impl.inventory.block.BeaconInventoryImpl;
+import org.diorite.block.Beacon;
 import org.diorite.block.Block;
 import org.diorite.block.BlockLocation;
+import org.diorite.inventory.block.BeaconInventory;
 import org.diorite.inventory.item.ItemStack;
 import org.diorite.inventory.item.meta.PotionMeta.PotionTypes;
 import org.diorite.material.BlockMaterialData;
@@ -21,12 +24,13 @@ import org.diorite.utils.math.DioriteRandom;
 
 public class TileEntityBeaconImpl extends TileEntityImpl implements TileEntityBeacon
 {
-    private final Block       block;
-    private       int         level;
-    private       PotionTypes primary;
-    private       PotionTypes secondary;
+    private final Beacon          block;
+    private       BeaconInventory inventory;
+    private       int             level;
+    private       PotionTypes     primary;
+    private       PotionTypes     secondary;
 
-    public TileEntityBeaconImpl(final Block block)
+    public TileEntityBeaconImpl(final Beacon block)
     {
         super(block.getLocation());
 
@@ -34,6 +38,7 @@ public class TileEntityBeaconImpl extends TileEntityImpl implements TileEntityBe
         this.level = 0;
         this.primary = null;
         this.secondary = null;
+        this.inventory = new BeaconInventoryImpl(block);
     }
 
     @Override
@@ -45,7 +50,7 @@ public class TileEntityBeaconImpl extends TileEntityImpl implements TileEntityBe
     @Override
     public Block getBlock()
     {
-        return this.block;
+        return this.block.getBlock();
     }
 
     @Override
@@ -135,6 +140,12 @@ public class TileEntityBeaconImpl extends TileEntityImpl implements TileEntityBe
     public void setSecondaryEffect(final PotionTypes effect)
     {
         this.secondary = effect;
+    }
+
+    @Override
+    public BeaconInventory getInventory()
+    {
+        return null;
     }
 
     @Override
