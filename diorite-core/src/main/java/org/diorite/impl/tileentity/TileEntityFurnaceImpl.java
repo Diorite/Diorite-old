@@ -186,10 +186,10 @@ public class TileEntityFurnaceImpl extends TileEntityImpl implements TileEntityF
         nbtTileEntity.setShort("BurnTime", this.burnTime);
         nbtTileEntity.setShort("CookTime", this.cookTime);
         final List<NbtTag> nbtItems = new ArrayList<>(3);
-        for (int i = 0; i < this.items.length; i++)
+        /*for (int i = 0; i < this.items.length; i++)
         {
             nbtItems.set(i, this.items[i].serializeToNBT());
-        }
+        }*/ // TODO NPE
         nbtTileEntity.setList("Items", nbtItems);
     }
 

@@ -25,8 +25,6 @@
 package org.diorite.impl.connection.packets.play.clientbound;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -36,12 +34,14 @@ import org.diorite.impl.connection.EnumProtocolDirection;
 import org.diorite.impl.connection.packets.PacketClass;
 import org.diorite.impl.connection.packets.PacketDataSerializer;
 import org.diorite.impl.connection.packets.play.PacketPlayClientboundListener;
+import org.diorite.impl.tileentity.TileEntityImpl;
 import org.diorite.impl.world.chunk.ChunkImpl;
 import org.diorite.impl.world.chunk.ChunkPartImpl;
 import org.diorite.nbt.NbtTagCompound;
 import org.diorite.utils.math.DioriteMathUtils;
 
 import io.netty.buffer.Unpooled;
+import it.unimi.dsi.fastutil.objects.ObjectIterator;
 
 @SuppressWarnings("MagicNumber")
 @PacketClass(id = 0x20, protocol = EnumProtocol.PLAY, direction = EnumProtocolDirection.CLIENTBOUND, size = 90000)
@@ -55,7 +55,7 @@ public class PacketPlayClientboundMapChunk extends PacketPlayClientbound
     private boolean              fullChunk; // 1 byte
     private boolean              skyLight; // 1 byte
     private int                  mask; // 4 byte
-    private List<NbtTagCompound> tileEntities;
+    private NbtTagCompound[]     tileEntities;
 
     public PacketPlayClientboundMapChunk()
     {
@@ -83,8 +83,14 @@ public class PacketPlayClientboundMapChunk extends PacketPlayClientbound
         chunkSer.writerIndex(0);
         write(chunkSer, chunk, fullChunk, includeSkyLight, mask);
 
-        this.tileEntities = new ArrayList<>(chunk.getTileEntities().size());
-        // TODO load tile entities
+        this.tileEntities = new NbtTagCompound[chunk.getTileEntities().size()];
+        final ObjectIterator<TileEntityImpl> tileEntityIterator = chunk.getTileEntities().values().iterator();
+        for (int i = 0; tileEntityIterator.hasNext(); i++)
+        {
+            final NbtTagCompound nbt = new NbtTagCompound();
+            tileEntityIterator.next().saveToNbt(nbt);
+            this.tileEntities[i] = nbt;
+        }
     }
 
     @Override
@@ -95,10 +101,10 @@ public class PacketPlayClientboundMapChunk extends PacketPlayClientbound
         this.fullChunk = data.readBoolean();
         this.mask = data.readVarInt();
         this.data = data.readByteWord();
-        this.tileEntities = new ArrayList<>(data.readVarInt());
-        for (int i = 0; i < this.tileEntities.size(); i++)
+        this.tileEntities = new NbtTagCompound[data.readVarInt()];
+        for (int i = 0; i < this.tileEntities.length; i++)
         {
-            this.tileEntities.add(data.readNbtTagCompound());
+            this.tileEntities[i] = data.readNbtTagCompound();
         }
     }
 
@@ -110,8 +116,11 @@ public class PacketPlayClientboundMapChunk extends PacketPlayClientbound
         data.writeBoolean(this.fullChunk);
         data.writeVarInt(this.mask);
         data.writeByteWord(this.data);
-        data.writeVarInt(this.tileEntities.size());
-        this.tileEntities.forEach(data::writeNbtTagCompound);
+        data.writeVarInt(this.tileEntities.length);
+        for (final NbtTagCompound tileEntity : this.tileEntities)
+        {
+            data.writeNbtTagCompound(tileEntity);
+        }
     }
 
     @Override
@@ -150,7 +159,7 @@ public class PacketPlayClientboundMapChunk extends PacketPlayClientbound
         this.fullChunk = fullChunk;
     }
 
-    public List<NbtTagCompound> getTileEntities()
+    public NbtTagCompound[] getTileEntities()
     {
         return this.tileEntities;
     }

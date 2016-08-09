@@ -28,10 +28,10 @@ import java.util.List;
 
 public class BeanContainer
 {
-    private Class<?> beanClass;
+    private Class<?>     beanClass;
     private List<String> aliases;
     private BeanProvider provider;
-    private Object bean;
+    private Object       bean;
 
     public BeanContainer(final Class<?> beanClass, final BeanProvider provider)
     {

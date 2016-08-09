@@ -24,6 +24,7 @@
 
 package org.diorite.impl.tileentity;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -78,6 +79,7 @@ public class TileEntityChestImpl extends TileEntityImpl implements TileEntityChe
     public void saveToNbt(final NbtTagCompound nbtTileEntity)
     {
         super.saveToNbt(nbtTileEntity);
+        nbtTileEntity.setList("Items", new ArrayList<>(0));
 
         //TODO: save items to NBT
     }

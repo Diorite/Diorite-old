@@ -77,7 +77,6 @@ public class BlockPlacePipelineImpl extends SimpleEventPipeline<PlayerBlockPlace
                 }
             }
 
-
             evt.getBlock().setType((BlockMaterialData) item.getMaterial());
             DioriteCore.getInstance().getPlayersManager().forEach(p -> p.getWorld().equals(evt.getBlock().getWorld()), new PacketPlayClientboundBlockChange(evt.getBlock().getLocation(), evt.getBlock().getType()));
         });

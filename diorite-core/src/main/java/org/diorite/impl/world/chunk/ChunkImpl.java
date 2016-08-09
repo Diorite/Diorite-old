@@ -26,7 +26,6 @@ package org.diorite.impl.world.chunk;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -41,7 +40,7 @@ import org.diorite.impl.entity.IPlayer;
 import org.diorite.impl.tileentity.TileEntityImpl;
 import org.diorite.impl.world.WorldImpl;
 import org.diorite.impl.world.chunk.palette.PaletteImpl;
-import org.diorite.block.BlockLocation;
+import org.diorite.block.Block;
 import org.diorite.event.EventType;
 import org.diorite.event.chunk.ChunkUnloadEvent;
 import org.diorite.material.BlockMaterialData;
@@ -52,7 +51,6 @@ import org.diorite.tileentity.TileEntity;
 import org.diorite.utils.collections.arrays.NibbleArray;
 import org.diorite.utils.collections.sets.ConcurrentSet;
 import org.diorite.world.Biome;
-import org.diorite.block.Block;
 import org.diorite.world.World;
 import org.diorite.world.chunk.Chunk;
 import org.diorite.world.chunk.ChunkPos;
@@ -301,6 +299,7 @@ public class ChunkImpl implements Chunk
         }
 //        ServerImpl.getInstance().getPlayersManager().forEach(p -> p.getPlayerChunks().getVisibleChunks().contains(this), new PacketPlayOutBlockChange(new BlockLocation(x + (this.pos.getX() << 4), y, z + (this.pos.getZ() << 4), this.getWorld()), materialData));
         this.checkPart(chunkPart);
+        this.checkTileEntity(x, y, z);
         return prev;
     }
 
@@ -621,12 +620,12 @@ public class ChunkImpl implements Chunk
             tag.setList("Entities", entities);
 
             final List<NbtTag> nbtTileEntities = new ArrayList<>(this.tileEntities.size());
-            Collection<TileEntityImpl> tileEntitiesCollection = this.tileEntities.values();
 
-            for(Iterator<TileEntityImpl> i = tileEntitiesCollection.iterator(); i.hasNext();)
+            Collection<TileEntityImpl> tileEntitiesCollection = this.tileEntities.values();
+            for (final TileEntityImpl aTileEntitiesCollection : tileEntitiesCollection)
             {
                 NbtTagCompound nbtTileEntity = new NbtTagCompound();
-                i.next().saveToNbt(nbtTileEntity);
+                aTileEntitiesCollection.saveToNbt(nbtTileEntity);
 
                 nbtTileEntities.add(nbtTileEntity);
             }
@@ -694,16 +693,31 @@ public class ChunkImpl implements Chunk
         return chunk;
     }
 
+    public void checkTileEntity(final int x, final int y, final int z)
+    {
+        final Block block = this.getBlock(x, y, z); // TODO do it better? Previously check if block can have tile entity?
+        // TODO check is it valid block
+        final long blockLocation = block.getLocation().asLong();
+        if (this.tileEntities.containsKey(blockLocation))
+        {
+            // TODO validate type of TileEntity
+            return;
+        }
+
+        final TileEntityImpl tileEntity = DioriteCore.getInstance().getServerManager().getTileEntityFactory().createTileEntity(block);
+        if (tileEntity == null)
+        {
+            return;
+        }
+
+        this.tileEntities.put(blockLocation, tileEntity);
+    }
+
     @Override
     public TileEntity getTileEntity(final Block block)
     {
-        TileEntity tileEntity = this.tileEntities.get(block.getLocation().asLong());
-
-        if(tileEntity == null)
-        {
-            this.tileEntities.put(block.getLocation().asLong(), DioriteCore.getInstance().getServerManager().getTileEntityFactory().createTileEntity(block));
-        }
-
+        final TileEntity tileEntity = this.tileEntities.get(block.getLocation().asLong());
+        // TODO throw exception, block hasn't tile entity
         return tileEntity;
     }
 }
