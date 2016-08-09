@@ -100,6 +100,10 @@ public class DioriteTileEntityFactory implements ITileEntityFactory
     @Override
     public TileEntityImpl createTileEntity(final BlockState block)
     {
+        if (block == null)
+        {
+            return null;
+        }
         final BlockMaterialData mat = block.getType();
         final Function<BlockState, TileEntityImpl> creator = this.mapper.get(mat);
 
